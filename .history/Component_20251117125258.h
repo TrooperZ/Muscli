@@ -1,0 +1,125 @@
+/**
+ * @file Component.h
+ * @brief Component class definition
+ *
+ * Created by Amin Karic, 11/11/25 14:44
+ *
+ * This class represents a general component that can be added to a Menu.
+ */
+#include <cstdint>
+
+#include "ColoredChar.h"
+#ifndef COMPONENT_H
+#define COMPONENT_H
+
+/**
+ * @brief Represents a component object.
+ * 
+ */
+class Component {
+   private:
+    uint32_t x;
+    uint32_t y;
+    uint32_t width;
+    uint32_t height;
+
+   public:
+    Component();
+    Component(uint32_t xCoord, uint32_t yCoord);
+    Component(uint32_t xCoord, uint32_t yCoord, uint32_t w, uint32_t h);
+    virtual ~Component();
+
+    /**
+     * @brief Gets the x coordinate of the component.
+     * ß
+     * @return x coordinate
+     */
+    uint32_t getX() { return x; }
+    const uint32_t getX() const { return x; }
+
+    /**
+     * @brief Gets the y coordinate of the component.
+     * 
+     * @return y coordinate
+     */
+    uint32_t getY() { return y; }
+    const uint32_t getY() const { return y; }
+
+    /**
+     * @brief Gets the height of the component.
+     * 
+     * @return height
+     */
+    uint32_t getHeight() { return height; }
+
+    const uint32_t getHeight() const { return height; }
+
+    /**
+     * @brief Gets the width of the component.
+     * 
+     * @return width
+     */
+    uint32_t getWidth() { return width; }
+    const uint32_t getWidth() const { return width; }
+
+    /**
+     * @brief Set the Width object
+     *
+     * @param w
+     */
+    void setWidth(uint32_t w) { width = w; }
+    void setHeight(uint32_t h) { height = h; }
+    void setX(uint32_t xCoord) { x = xCoord; }
+    void setY(uint32_t yCoord) { y = yCoord; }
+
+    virtual ColoredChar pixelAt(int x, int y) const;
+};
+
+/**
+ * @brief Default component constructor. Initializes values to 0.
+ */
+inline Component::Component() : x(0), y(0), width(0), height(0) {}
+
+/**
+ * @brief Parameterized constructor with only coordinates.
+ * 
+ * @param xCoord horizontal coordinate
+ * @param yCoord vertical coordinate
+ */
+inline Component::Component(uint32_t xCoord, uint32_t yCoord)
+    : x(xCoord), y(yCoord), width(0), height(0) {}
+
+/**
+ * @brief Parameterized constructor with dimensions and coordinates.
+ * 
+ * @param xCoord horizontal coordinate
+ * @param yCoord vertical coordinate
+ * @param w width of the component
+ * @param h height of the component
+ */
+inline Component::Component(uint32_t xCoord, uint32_t yCoord, uint32_t w,
+                            uint32_t h)
+    : x(xCoord), y(yCoord), width(w), height(h) {}
+
+/**
+ * @brief Destroys the Component object
+ */
+inline Component::~Component() {
+    x = 0;
+    y = 0;
+    width = 0;
+    height = 0;
+}
+
+/**
+ * @brief Default pixelAt function. Returns a blank character.
+ * 
+ * @param x x coordinate
+ * @param y y coordinate
+ * @return ColoredChar at (x, y)
+ */
+inline ColoredChar Component::pixelAt(int x, int y) const {
+    return ColoredChar(' ', 0x000000FF);
+}
+
+#endif
