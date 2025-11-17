@@ -1,0 +1,73 @@
+# Basic .gitignore for Muscli
+
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+Icon?
+._*
+.Spotlight-V100
+.Trashes
+.fseventsd/
+*.swp
+
+# Windows
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+
+# Editor / IDE
+.vscode/
+.idea/
+*.sublime-workspace
+*.sublime-project
+
+# Node
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.pnpm-debug.log*
+
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+*.sqlite3
+.pytest_cache/
+venv/
+.env
+.env.* 
+
+# Compiled / build outputs
+dist/
+build/
+out/
+*.egg-info/
+*.egg
+*.whl
+
+# Logs and reports
+*.log
+coverage/
+htmlcov/
+.coverage
+
+# Archives and packages
+*.zip
+*.tar.gz
+*.tgz
+*.rar
+
+# macOS/iCloud noisy files
+*.icloud
+
+# Local project secrets
+credentials
+secrets.yml
+*.pem
+*.key
+
+# Add language/tool specific ignores below
+.history
