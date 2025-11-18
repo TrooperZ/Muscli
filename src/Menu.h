@@ -85,8 +85,12 @@ inline void Menu::render() {
     // Put the updated components into the render buffer
     for (const auto& comp : components) {
         // Render the component pixel by pixel
+        std::cout << "Rendering component at (" << comp->getX() << ", "
+                  << comp->getY() << ") with size (" << comp->getWidth()
+                  << "x" << comp->getHeight() << ")\n";
         for (uint32_t y = 0; y < comp->getHeight(); ++y) {
             for (uint32_t x = 0; x < comp->getWidth(); ++x) {
+                std::cout << "Rendering pixel at (" << x << ", " << y << ")\n";
                 // We don't want anything on the border, so we add an offset of
                 // 1
                 int bufX = comp->getX() + x + 1;

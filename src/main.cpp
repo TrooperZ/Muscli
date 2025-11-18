@@ -29,7 +29,7 @@ int main() {
     Menu m(width, height - 1);
     m.addComponent(new Text(40, 5, "Starboy", 255, 255, 255 ));
     m.addComponent(new Text(40, 6, "The Weeknd", 255, 255, 255 ));
-    m.addComponent(new Text(40, 8, U"⏸", 255, 255, 255 ));
+    m.addComponent(new Text(40, 8, "⏸", 255, 255, 255 ));
     AlbumAsciiArt *art = new AlbumAsciiArt("starboy.png", 5, 3);
     art->AlbumAsciiArt_Test();
     m.addComponent(art);

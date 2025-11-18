@@ -1,7 +1,7 @@
 /**
  * @file Component.h
  * @author Amin Karic
- * @brief Component class definition
+ * @brief Component class definition.
  * @version 0.1
  * @date 2025-11-17
  *
@@ -30,7 +30,7 @@ class Component {
     Component() = default;
     Component(uint32_t xCoord, uint32_t yCoord);
     Component(uint32_t xCoord, uint32_t yCoord, uint32_t w, uint32_t h);
-    Component(Component const& other) = default;
+    Component(const Component& other) = default;
     Component& operator=(Component const& other) = default;
     virtual ~Component();
 
@@ -68,28 +68,28 @@ class Component {
     const uint32_t getWidth() const { return width; }
 
     /**
-     * @brief Sets the width of the object
+     * @brief Sets the width of the object.
      *
      * @param w new width
      */
     void setWidth(uint32_t w) { width = w; }
 
     /**
-     * @brief Sets the height of the object
+     * @brief Sets the height of the object.
      *
      * @param h new height
      */
     void setHeight(uint32_t h) { height = h; }
 
     /**
-     * @brief Sets the x coordinate of the object
+     * @brief Sets the x coordinate of the object.
      *
      * @param xCoord new x coordinate
      */
     void setX(uint32_t xCoord) { x = xCoord; }
 
     /**
-     * @brief Sets the y coordinate of the object
+     * @brief Sets the y coordinate of the object.
      *
      * @param yCoord new y coordinate
      */
