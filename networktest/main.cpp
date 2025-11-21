@@ -1,21 +1,30 @@
 #include <_ctype.h>
 #include <arpa/inet.h>
+#include <netdb.h>
 #include <netinet/in.h>
 #include <sys/socket.h>
 #include <sys/types.h>
 #include <unistd.h>
-
+#include <openssl/ssl.h>
+#include <openssl/err.h>
+#include <openssl/crypto.h>
+#include <fstream>
 #include <iostream>
 #include <stdexcept>
 #include <string>
 
+
+// g++ main.cpp -g \                                 
+//   -I/opt/homebrew/opt/openssl@3/include \
+//   -L/opt/homebrew/opt/openssl@3/lib \
+//   -lssl -lcrypto
 struct URL {
     std::string protocol;
     std::string host;
     std::string path;
-    uint16_t port;
+    std::string port;
 
-    URL() : protocol("http"), host(""), path("/"), port(80) {}
+    URL() : protocol("http"), host(""), path("/"), port("80") {}
     /**
      * @brief Construct a new URL object with a URL string
      *
@@ -25,125 +34,153 @@ struct URL {
      *
      * @param url the target URL
      */
-    URL(std::string url) {
-        size_t urlSize = url.size();
-		
-		// 1. Find
-        // Find dot from the end
-        size_t hostDotIndex = std::string::npos;
-        size_t hostLeftIndex = std::string::npos;   // Inclusive
-        size_t hostRightIndex = std::string::npos;  // Inclusive
-        for (size_t i = 0; i < urlSize; ++i) {
-            if (url[urlSize - 1 - i] == '.') {
-                hostDotIndex = urlSize - 1 - i;
-                break;
-            }
-        }
-        // No dot found or the dot is just hanging at the front or back
-        // means an invalid URL
-        if (hostDotIndex == std::string::npos || hostDotIndex == urlSize - 1 ||
-            hostDotIndex == 0) {
-            throw std::invalid_argument(
-                "The given url does not appear to be a proper URL. (Could not "
-                "parse "
-                "host.)");
+    URL(std::string url) : protocol("http"), port("80"), path("/") {
+        size_t p = 0;
+
+        // Find the protocol
+        size_t protocolEnd = url.find("://");
+        if (protocolEnd != std::string::npos) {
+            protocol = url.substr(0, protocolEnd);
+            p = protocolEnd + 3;
         }
 
-        // Read right of dot
-        for (size_t i = hostDotIndex + 1; i < urlSize; ++i) {
-            if (i == urlSize - 1) {
-                hostRightIndex = i;
-                break;
-            }
-            if (url[i] == '/' || url[i] == ':') {
-                hostRightIndex = i - 1;
-                break;
-            }
+        // Find the host
+        size_t hostEnd = url.find_first_of(":/", p);
+        host = url.substr(p, hostEnd - p);
+        p = hostEnd;
+
+        // Find the port if there is one
+        if (p != std::string::npos && url[p] == ':') {
+            size_t portStart = p + 1;
+            size_t portEnd = url.find('/', portStart);
+            std::string portStr = url.substr(portStart, portEnd - portStart);
+
+            port = portStr;
+
+            p = portEnd;
         }
 
-        // Read left of dot
-        for (size_t i = hostDotIndex - 1; i >= 0; --i) {
-            if (i == 0) {
-                hostLeftIndex = i;
-                break;
-            }
-            if (url[i] == '/') {
-                hostLeftIndex = i + 1;
-                break;
-            }
+        // Find path
+        if (p != std::string::npos && url[p] == '/') {
+            path = url.substr(p);
         }
-
-        // If left == right, something likely went wrong and this is not a
-        // correct URL
-        if (hostLeftIndex == hostRightIndex) {
-            throw std::invalid_argument(
-                "The given url does not appear to be a proper URL. (Could not "
-                "parse "
-                "host.)");
-        }
-
-        // Extract string
-        host = url.substr(hostLeftIndex, hostRightIndex - hostLeftIndex + 1);
-
-        // Next, we extract the protocol. We read from index 0 till a ':'. If
-        // hostLeftIndex == 0, we assume HTTP (we should probably assume HTTPS,
-        // but we can always upgrade HTTP later once we attempt the connection).
-        if (hostLeftIndex == 0) {
-            protocol = "http";
-        } else {
-            for (size_t i = 0; i < urlSize; ++i) {
-                if (url[i] == ':') {
-                    protocol = url.substr(0, i);
-                    break;
-                }
-            }
-        }
-        // We couldn't figure out the protocol so we just throw an error.
-        if (protocol.empty()) {
-            throw std::invalid_argument(
-                "The given url does not appear to be a proper URL. (Could "
-                "not parse "
-                "host.)");
-        }
-
-        // Next we extract the port, usually since we assume HTTP we will set
-        // 80, but if the user specifies a port (www.url.com:1234), we must use
-        // that. We just check if url[hostRightIndex] == ':' and that means we
-        // have a port specified. We then read until the end or a '/'
-        std::string portString;
-        size_t portEndIndex = hostRightIndex;
-        portString.reserve(5);  // Biggest port number possible is 65535
-        if (url[hostRightIndex] == ':') {
-            for (size_t i = hostRightIndex + 1; i < urlSize; ++i) {
-                if (isnumber(url[i])) {
-                    portString.push_back(url[i]);
-                } else {
-                    portEndIndex += i - 1;
-                    break;
-                }
-            }
-        }
-        if (!portString.empty()) {
-            port = std::stoi(portString);
-        } else {
-            port = 80;
-        }
-
-        // Finally, extract the path. We start at the end of the port (usually
-        // will be equal to hostRightIndex if port not specificed) and go to the
-        // end of the string.
-        path = url.substr(portEndIndex + 1, urlSize - portEndIndex + 1);
     };
 };
 
-// int main() {
-//     // https://m.media-amazon.com/images/I/81yLya2IJtL._UF1000,1000_QL80_.jpg
-//     // https://www.geeksforgeeks.org/cpp/socket-programming-in-cpp/
-
-//     return 0;
-// }
-
 int main() {
+    // https://m.media-amazon.com/images/I/81yLya2IJtL._UF1000,1000_QL80_.jpg
+    // https://www.geeksforgeeks.org/cpp/socket-programming-in-cpp/
+
+    // http://1153288396.rsc.cdn77.org/http2/tiles_final/tile_106.png
+    // http://httpforever.com/
+
+    // clang-format off
+    URL a(
+    "http://httpbin.org/image/jpeg");
+    // clang-format on
+
+    // Address info struct to put data into
+    struct addrinfo *res = nullptr;
+
+    // getaddrinfo is set of wrapped system calls that returns a linked list of
+    // resolved IPs which can be used to open sockets to
+    int address = getaddrinfo(a.host.data(), a.port.data(), 0, &res);
+
+    // Go through each resolved address linked list style.
+    while (res) {
+        // buf stores the IP address
+        char buf[res->ai_addrlen];
+
+        // inet_top takes the binary representation of the IP address and
+        // formats it to a human readable view. AF_INET specifies IPv4, we must
+        // also pass a void pointer to the data, and we pass the buffer and the
+        // size of the buffer.
+        inet_ntop(AF_INET, &(((sockaddr_in *)res->ai_addr)->sin_addr), buf,
+                  sizeof(buf));
+
+        std::cout << "Found address " << buf << '\n';
+
+        std::cout << "Connecting to address...\nCreating socket...\n";
+        // We then create a socket to connect to that IP, matching the
+        // response's family, socktype, and protocl
+        int sock = socket(res->ai_family, res->ai_socktype, res->ai_protocol);
+
+        std::cout << "Socket status " << sock << "\nConnecting to socket...\n";
+
+        // Connect to the socket
+        int conn = connect(sock, res->ai_addr, res->ai_addrlen);
+
+        int savedConnStatus = conn;
+        std::cout << "Connected to socket, status " << conn << '\n';
+
+        // Build the HTTP request
+        std::string requestData =
+            "GET " + a.path +
+            " HTTP/1.1\r\n"
+            "Host: " +
+            a.host +
+            "\r\n"
+            "Connection: close\r\n"  // ensures server closes after sending
+            "\r\n";
+
+        std::cout << "Sending http request with the data: " << requestData
+                  << '\n';
+
+        // Send the HTTP request to the address
+        int sending = send(sock, requestData.data(), requestData.size(), 0);
+
+        std::cout << "Sent bytes: " << sending << '\n';
+
+        // 4 KB buffer at a time
+        char buffer[4096];
+        int n;
+
+        std::ofstream ofs;
+        ofs.open("output.jpeg", std::ios::binary);
+        if (!ofs) {
+            std::cout << "Error opening file. \n";
+            return -1;
+        }
+
+        bool headersCleared = false;
+        while ((n = recv(sock, buffer, sizeof(buffer), 0)) > 0) {
+            // Process headers so we don't write them to the image
+            if (!headersCleared) {
+                std::string chunk(buffer, n);
+                std::cout << "Headers: \n\n " << chunk;
+                size_t endHeadersIndex = chunk.find("\r\n\r\n");
+                
+                if (endHeadersIndex != std::string::npos) {
+                    std::string body =
+                        chunk.substr(endHeadersIndex + 4);  // body begins here
+                    ofs.write(body.data(), body.size());
+
+                    headersCleared = !headersCleared;
+                    continue;
+                } else {
+                    std::cout << "Could not find headers... \n";
+                    return -1;
+                }
+            }
+            std::cout.write(buffer, n);
+            ofs.write(buffer, n);  // write exactly n bytes
+        }
+
+        std::cout << "\nConnection closed by server, total bytes read: " << n
+                  << "\n";
+
+        close(sock);
+        if (savedConnStatus != 0) {
+            res = res->ai_next;
+        } else {
+            res = nullptr;
+        }
+    }
+
+    return 0;
+}
+
+int testURL() {
     const std::string testUrls[] = {
         "http://www.example.com",
         "https://www.example.com",

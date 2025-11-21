@@ -72,3 +72,5 @@ secrets.yml
 # Add language/tool specific ignores below
 .history
 /.history
+
+.clangd
