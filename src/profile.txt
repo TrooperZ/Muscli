@@ -1,0 +1,433 @@
+Flat profile:
+
+Each sample counts as 0.01 seconds.
+  %   cumulative   self              self     total           
+ time   seconds   seconds    calls  ms/call  ms/call  name    
+100.00      0.01     0.01        2     5.00     5.00  stbir__calculate_filters(stbir__sampler*, stbir__sampler*, void*)
+  0.00      0.01     0.00     1841     0.00     0.00  Menu::~Menu()
+  0.00      0.01     0.00      940     0.00     0.00  stbir__insert_coeff(stbir__contributors*, float*, int, float, int)
+  0.00      0.01     0.00      450     0.00     0.00  AlbumAsciiArt::pixelAt(int, int) const
+  0.00      0.01     0.00      300     0.00     0.00  stbir__decode_scanline(stbir__info const*, int, float*)
+  0.00      0.01     0.00      300     0.00     0.00  stbir__fancy_alpha_weight_4ch(float*, int)
+  0.00      0.01     0.00      300     0.00     0.00  stbi__create_png_alpha_expand8(unsigned char*, unsigned char*, unsigned int, int)
+  0.00      0.01     0.00      300     0.00     0.00  stbir__decode_uint8_srgb4_linearalpha(float*, int, void const*)
+  0.00      0.01     0.00      228     0.00     0.00  stbir__vertical_scatter_with_4_coeffs_cont(float**, float const*, float const*, float const*)
+  0.00      0.01     0.00      120     0.00     0.00  stbir__edge_clamp_full(int, int)
+  0.00      0.01     0.00      120     0.00     0.00  stbir__filter_mitchell(float, float, void*)
+  0.00      0.01     0.00       56     0.00     0.00  stbi__get16be(stbi__context*)
+  0.00      0.01     0.00       51     0.00     0.00  stbir__vertical_scatter_with_3_coeffs_cont(float**, float const*, float const*, float const*)
+  0.00      0.01     0.00       23     0.00     0.00  ColoredChar* std::__do_uninit_copy<__gnu_cxx::__normal_iterator<ColoredChar const*, std::vector<ColoredChar, std::allocator<ColoredChar> > >, ColoredChar*>(__gnu_cxx::__normal_iterator<ColoredChar const*, std::vector<ColoredChar, std::allocator<ColoredChar> > >, __gnu_cxx::__normal_iterator<ColoredChar const*, std::vector<ColoredChar, std::allocator<ColoredChar> > >, ColoredChar*)
+  0.00      0.01     0.00       20     0.00     0.00  stbir__vertical_scatter_with_2_coeffs_cont(float**, float const*, float const*, float const*)
+  0.00      0.01     0.00       19     0.00     0.00  stbir__horizontal_resample_and_encode_first_scanline_from_scatter(stbir__info const*, stbir__per_split_info*)
+  0.00      0.01     0.00       18     0.00     0.00  ColoredChar::ColoredChar(char32_t, unsigned int)
+  0.00      0.01     0.00       18     0.00     0.00  Text::pixelAt(int, int) const
+  0.00      0.01     0.00       16     0.00     0.00  stbi__get32be(stbi__context*)
+  0.00      0.01     0.00       15     0.00     0.00  stbir__fancy_alpha_unweight_4ch(float*, int)
+  0.00      0.01     0.00       15     0.00     0.00  stbir__encode_uint8_srgb4_linearalpha(void*, int, float const*)
+  0.00      0.01     0.00       15     0.00     0.00  stbir__horizontal_gather_7_channels_with_n_coeffs_mod0(float*, unsigned int, float const*, stbir__contributors const*, float const*, int)
+  0.00      0.01     0.00       15     0.00     0.00  std::vector<ColoredChar, std::allocator<ColoredChar> >::_M_default_append(unsigned long)
+  0.00      0.01     0.00       14     0.00     0.00  stbi__stdio_read(void*, char*, int)
+  0.00      0.01     0.00       13     0.00     0.00  stbir__vertical_scatter_with_1_coeffs(float**, float const*, float const*, float const*)
+  0.00      0.01     0.00       12     0.00     0.00  stbi__zbuild_huffman(stbi__zhuffman*, unsigned char const*, int)
+  0.00      0.01     0.00       10     0.00     0.00  void std::vector<ColoredChar, std::allocator<ColoredChar> >::_M_realloc_insert<ColoredChar>(__gnu_cxx::__normal_iterator<ColoredChar*, std::vector<ColoredChar, std::allocator<ColoredChar> > >, ColoredChar&&)
+  0.00      0.01     0.00        7     0.00     0.00  stbir__support_two(float, void*)
+  0.00      0.01     0.00        6     0.00     0.00  stbi__getn(stbi__context*, unsigned char*, int)
+  0.00      0.01     0.00        6     0.00     0.00  stbi__compute_huffman_codes(stbi__zbuf*)
+  0.00      0.01     0.00        4     0.00     0.00  std::vector<Component*, std::allocator<Component*> >::push_back(Component* const&)
+  0.00      0.01     0.00        4     0.00     0.00  std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >::basic_string<std::allocator<char> >(char const*, std::allocator<char> const&)
+  0.00      0.01     0.00        3     0.00     0.00  Text::Text(unsigned int, unsigned int, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&, unsigned char, unsigned char, unsigned char)
+  0.00      0.01     0.00        3     0.00     0.00  Text::~Text()
+  0.00      0.01     0.00        3     0.00     0.00  void std::vector<Component*, std::allocator<Component*> >::_M_realloc_insert<Component* const&>(__gnu_cxx::__normal_iterator<Component**, std::vector<Component*, std::allocator<Component*> > >, Component* const&)
+  0.00      0.01     0.00        2     0.00     0.00  stbir__set_sampler(stbir__sampler*, stbir_filter, float (*)(float, float, void*), float (*)(float, void*), stbir_edge, stbir__scale_info*, int, void*)
+  0.00      0.01     0.00        1     0.00     0.00  stbi__load_main(stbi__context*, int*, int*, int*, int, stbi__result_info*, int)
+  0.00      0.01     0.00        1     0.00     0.00  stbi__parse_zlib(stbi__zbuf*, int)
+  0.00      0.01     0.00        1     0.00     0.00  stbi__parse_png_file(stbi__png*, int, int)
+  0.00      0.01     0.00        1     0.00    10.00  stbir__perform_build(STBIR_RESIZE*, int) [clone .constprop.0]
+  0.00      0.01     0.00        1     0.00     0.00  stbi__create_png_image_raw(stbi__png*, unsigned char*, unsigned int, int, unsigned int, unsigned int, int, int)
+  0.00      0.01     0.00        1     0.00     0.00  stbir__vertical_scatter_loop(stbir__info const*, stbir__per_split_info*, int)
+  0.00      0.01     0.00        1     0.00     0.00  stbi__load_and_postprocess_8bit(stbi__context*, int*, int*, int*, int)
+  0.00      0.01     0.00        1     0.00     0.00  stbir__vertical_scatter_with_2_coeffs(float**, float const*, float const*, float const*)
+  0.00      0.01     0.00        1     0.00    10.00  AlbumAsciiArt::loadFromFile(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&)
+  0.00      0.01     0.00        1     0.00    10.00  AlbumAsciiArt::AlbumAsciiArt(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >, unsigned int, unsigned int)
+  0.00      0.01     0.00        1     0.00     0.00  AlbumAsciiArt::~AlbumAsciiArt()
+  0.00      0.01     0.00        1     0.00     0.00  Menu::render()
+  0.00      0.01     0.00        1     0.00     0.00  Menu::Menu(unsigned int, unsigned int)
+  0.00      0.01     0.00        1     0.00     0.00  std::vector<std::vector<ColoredChar, std::allocator<ColoredChar> >, std::allocator<std::vector<ColoredChar, std::allocator<ColoredChar> > > >::_M_fill_insert(__gnu_cxx::__normal_iterator<std::vector<ColoredChar, std::allocator<ColoredChar> >*, std::vector<std::vector<ColoredChar, std::allocator<ColoredChar> >, std::allocator<std::vector<ColoredChar, std::allocator<ColoredChar> > > > >, unsigned long, std::vector<ColoredChar, std::allocator<ColoredChar> > const&)
+  0.00      0.01     0.00        1     0.00     0.00  std::vector<std::vector<ColoredChar, std::allocator<ColoredChar> >, std::allocator<std::vector<ColoredChar, std::allocator<ColoredChar> > > >::_M_default_append(unsigned long)
+  0.00      0.01     0.00        1     0.00     0.00  std::vector<ColoredChar, std::allocator<ColoredChar> >* std::__do_uninit_fill_n<std::vector<ColoredChar, std::allocator<ColoredChar> >*, unsigned long, std::vector<ColoredChar, std::allocator<ColoredChar> > >(std::vector<ColoredChar, std::allocator<ColoredChar> >*, unsigned long, std::vector<ColoredChar, std::allocator<ColoredChar> > const&)
+
+ %         the percentage of the total running time of the
+time       program used by this function.
+
+cumulative a running sum of the number of seconds accounted
+ seconds   for by this function and those listed above it.
+
+ self      the number of seconds accounted for by this
+seconds    function alone.  This is the major sort for this
+           listing.
+
+calls      the number of times this function was invoked, if
+           this function is profiled, else blank.
+
+ self      the average number of milliseconds spent in this
+ms/call    function per call, if this function is profiled,
+	   else blank.
+
+ total     the average number of milliseconds spent in this
+ms/call    function and its descendents per call, if this
+	   function is profiled, else blank.
+
+name       the name of the function.  This is the minor sort
+           for this listing. The index shows the location of
+	   the function in the gprof listing. If the index is
+	   in parenthesis it shows where it would appear in
+	   the gprof listing if it were to be printed.
+
+Copyright (C) 2012-2024 Free Software Foundation, Inc.
+
+Copying and distribution of this file, with or without modification,
+are permitted in any medium without royalty provided the copyright
+notice and this notice are preserved.
+
+		     Call graph (explanation follows)
+
+
+granularity: each sample hit covers 4 byte(s) for 100.00% of 0.01 seconds
+
+index % time    self  children    called     name
+                                                 <spontaneous>
+[1]    100.0    0.00    0.01                 main [1]
+                0.00    0.01       1/1           AlbumAsciiArt::AlbumAsciiArt(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >, unsigned int, unsigned int) [5]
+                0.00    0.00       4/4           std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >::basic_string<std::allocator<char> >(char const*, std::allocator<char> const&) [107]
+                0.00    0.00       4/4           std::vector<Component*, std::allocator<Component*> >::push_back(Component* const&) [106]
+                0.00    0.00       3/3           Text::Text(unsigned int, unsigned int, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&, unsigned char, unsigned char, unsigned char) [108]
+                0.00    0.00       3/3           void std::vector<Component*, std::allocator<Component*> >::_M_realloc_insert<Component* const&>(__gnu_cxx::__normal_iterator<Component**, std::vector<Component*, std::allocator<Component*> > >, Component* const&) [110]
+                0.00    0.00       1/1           Menu::Menu(unsigned int, unsigned int) [121]
+                0.00    0.00       1/1841        Menu::~Menu() [77]
+                0.00    0.00       1/1           Menu::render() [120]
+-----------------------------------------------
+                0.01    0.00       2/2           stbir__perform_build(STBIR_RESIZE*, int) [clone .constprop.0] [3]
+[2]    100.0    0.01    0.00       2         stbir__calculate_filters(stbir__sampler*, stbir__sampler*, void*) [2]
+                0.00    0.00     820/940         stbir__insert_coeff(stbir__contributors*, float*, int, float, int) [78]
+                0.00    0.00     120/120         stbir__filter_mitchell(float, float, void*) [86]
+                0.00    0.00       2/7           stbir__support_two(float, void*) [103]
+                0.00    0.00       2/19          stbir__horizontal_resample_and_encode_first_scanline_from_scatter(stbir__info const*, stbir__per_split_info*) [91]
+-----------------------------------------------
+                0.00    0.01       1/1           AlbumAsciiArt::loadFromFile(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&) [4]
+[3]    100.0    0.00    0.01       1         stbir__perform_build(STBIR_RESIZE*, int) [clone .constprop.0] [3]
+                0.01    0.00       2/2           stbir__calculate_filters(stbir__sampler*, stbir__sampler*, void*) [2]
+                0.00    0.00       2/2           stbir__set_sampler(stbir__sampler*, stbir_filter, float (*)(float, float, void*), float (*)(float, void*), stbir_edge, stbir__scale_info*, int, void*) [111]
+                0.00    0.00       2/19          stbir__horizontal_resample_and_encode_first_scanline_from_scatter(stbir__info const*, stbir__per_split_info*) [91]
+                0.00    0.00       1/7           stbir__support_two(float, void*) [103]
+-----------------------------------------------
+                0.00    0.01       1/1           AlbumAsciiArt::AlbumAsciiArt(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >, unsigned int, unsigned int) [5]
+[4]    100.0    0.00    0.01       1         AlbumAsciiArt::loadFromFile(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&) [4]
+                0.00    0.01       1/1           stbir__perform_build(STBIR_RESIZE*, int) [clone .constprop.0] [3]
+                0.00    0.00      15/15          std::vector<ColoredChar, std::allocator<ColoredChar> >::_M_default_append(unsigned long) [98]
+                0.00    0.00       1/14          stbi__stdio_read(void*, char*, int) [99]
+                0.00    0.00       1/1           stbi__load_and_postprocess_8bit(stbi__context*, int*, int*, int*, int) [117]
+                0.00    0.00       1/1           stbir__vertical_scatter_loop(stbir__info const*, stbir__per_split_info*, int) [116]
+                0.00    0.00       1/1           std::vector<std::vector<ColoredChar, std::allocator<ColoredChar> >, std::allocator<std::vector<ColoredChar, std::allocator<ColoredChar> > > >::_M_default_append(unsigned long) [123]
+-----------------------------------------------
+                0.00    0.01       1/1           main [1]
+[5]    100.0    0.00    0.01       1         AlbumAsciiArt::AlbumAsciiArt(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >, unsigned int, unsigned int) [5]
+                0.00    0.01       1/1           AlbumAsciiArt::loadFromFile(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&) [4]
+-----------------------------------------------
+                0.00    0.00       1/1841        main [1]
+                0.00    0.00    1840/1841        Menu::render() [120]
+[77]     0.0    0.00    0.00    1841         Menu::~Menu() [77]
+                0.00    0.00       3/3           Text::~Text() [109]
+                0.00    0.00       1/1           AlbumAsciiArt::~AlbumAsciiArt() [119]
+-----------------------------------------------
+                0.00    0.00     120/940         stbir__horizontal_resample_and_encode_first_scanline_from_scatter(stbir__info const*, stbir__per_split_info*) [91]
+                0.00    0.00     820/940         stbir__calculate_filters(stbir__sampler*, stbir__sampler*, void*) [2]
+[78]     0.0    0.00    0.00     940         stbir__insert_coeff(stbir__contributors*, float*, int, float, int) [78]
+-----------------------------------------------
+                0.00    0.00     450/450         Menu::render() [120]
+[79]     0.0    0.00    0.00     450         AlbumAsciiArt::pixelAt(int, int) const [79]
+-----------------------------------------------
+                0.00    0.00     300/300         stbir__vertical_scatter_loop(stbir__info const*, stbir__per_split_info*, int) [116]
+[80]     0.0    0.00    0.00     300         stbir__decode_scanline(stbir__info const*, int, float*) [80]
+                0.00    0.00     300/300         stbir__decode_uint8_srgb4_linearalpha(float*, int, void const*) [83]
+                0.00    0.00     300/300         stbir__fancy_alpha_weight_4ch(float*, int) [81]
+-----------------------------------------------
+                0.00    0.00     300/300         stbir__decode_scanline(stbir__info const*, int, float*) [80]
+[81]     0.0    0.00    0.00     300         stbir__fancy_alpha_weight_4ch(float*, int) [81]
+-----------------------------------------------
+                0.00    0.00     300/300         stbi__create_png_image_raw(stbi__png*, unsigned char*, unsigned int, int, unsigned int, unsigned int, int, int) [115]
+[82]     0.0    0.00    0.00     300         stbi__create_png_alpha_expand8(unsigned char*, unsigned char*, unsigned int, int) [82]
+-----------------------------------------------
+                0.00    0.00     300/300         stbir__decode_scanline(stbir__info const*, int, float*) [80]
+[83]     0.0    0.00    0.00     300         stbir__decode_uint8_srgb4_linearalpha(float*, int, void const*) [83]
+-----------------------------------------------
+                0.00    0.00     228/228         stbir__vertical_scatter_loop(stbir__info const*, stbir__per_split_info*, int) [116]
+[84]     0.0    0.00    0.00     228         stbir__vertical_scatter_with_4_coeffs_cont(float**, float const*, float const*, float const*) [84]
+-----------------------------------------------
+                0.00    0.00     120/120         stbir__horizontal_resample_and_encode_first_scanline_from_scatter(stbir__info const*, stbir__per_split_info*) [91]
+[85]     0.0    0.00    0.00     120         stbir__edge_clamp_full(int, int) [85]
+-----------------------------------------------
+                0.00    0.00     120/120         stbir__calculate_filters(stbir__sampler*, stbir__sampler*, void*) [2]
+[86]     0.0    0.00    0.00     120         stbir__filter_mitchell(float, float, void*) [86]
+-----------------------------------------------
+                0.00    0.00      56/56          stbi__parse_png_file(stbi__png*, int, int) [114]
+[87]     0.0    0.00    0.00      56         stbi__get16be(stbi__context*) [87]
+-----------------------------------------------
+                0.00    0.00      51/51          stbir__vertical_scatter_loop(stbir__info const*, stbir__per_split_info*, int) [116]
+[88]     0.0    0.00    0.00      51         stbir__vertical_scatter_with_3_coeffs_cont(float**, float const*, float const*, float const*) [88]
+-----------------------------------------------
+                0.00    0.00      23/23          std::vector<ColoredChar, std::allocator<ColoredChar> >* std::__do_uninit_fill_n<std::vector<ColoredChar, std::allocator<ColoredChar> >*, unsigned long, std::vector<ColoredChar, std::allocator<ColoredChar> > >(std::vector<ColoredChar, std::allocator<ColoredChar> >*, unsigned long, std::vector<ColoredChar, std::allocator<ColoredChar> > const&) [124]
+[89]     0.0    0.00    0.00      23         ColoredChar* std::__do_uninit_copy<__gnu_cxx::__normal_iterator<ColoredChar const*, std::vector<ColoredChar, std::allocator<ColoredChar> > >, ColoredChar*>(__gnu_cxx::__normal_iterator<ColoredChar const*, std::vector<ColoredChar, std::allocator<ColoredChar> > >, __gnu_cxx::__normal_iterator<ColoredChar const*, std::vector<ColoredChar, std::allocator<ColoredChar> > >, ColoredChar*) [89]
+-----------------------------------------------
+                0.00    0.00      20/20          stbir__vertical_scatter_loop(stbir__info const*, stbir__per_split_info*, int) [116]
+[90]     0.0    0.00    0.00      20         stbir__vertical_scatter_with_2_coeffs_cont(float**, float const*, float const*, float const*) [90]
+-----------------------------------------------
+                0.00    0.00       2/19          stbir__calculate_filters(stbir__sampler*, stbir__sampler*, void*) [2]
+                0.00    0.00       2/19          stbir__perform_build(STBIR_RESIZE*, int) [clone .constprop.0] [3]
+                0.00    0.00      15/19          stbir__vertical_scatter_loop(stbir__info const*, stbir__per_split_info*, int) [116]
+[91]     0.0    0.00    0.00      19         stbir__horizontal_resample_and_encode_first_scanline_from_scatter(stbir__info const*, stbir__per_split_info*) [91]
+                0.00    0.00     120/120         stbir__edge_clamp_full(int, int) [85]
+                0.00    0.00     120/940         stbir__insert_coeff(stbir__contributors*, float*, int, float, int) [78]
+                0.00    0.00      15/15          stbir__horizontal_gather_7_channels_with_n_coeffs_mod0(float*, unsigned int, float const*, stbir__contributors const*, float const*, int) [97]
+                0.00    0.00      15/15          stbir__fancy_alpha_unweight_4ch(float*, int) [95]
+                0.00    0.00      15/15          stbir__encode_uint8_srgb4_linearalpha(void*, int, float const*) [96]
+-----------------------------------------------
+                0.00    0.00      18/18          Text::Text(unsigned int, unsigned int, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&, unsigned char, unsigned char, unsigned char) [108]
+[92]     0.0    0.00    0.00      18         ColoredChar::ColoredChar(char32_t, unsigned int) [92]
+-----------------------------------------------
+                0.00    0.00      18/18          Menu::render() [120]
+[93]     0.0    0.00    0.00      18         Text::pixelAt(int, int) const [93]
+-----------------------------------------------
+                0.00    0.00      16/16          stbi__parse_png_file(stbi__png*, int, int) [114]
+[94]     0.0    0.00    0.00      16         stbi__get32be(stbi__context*) [94]
+                0.00    0.00       7/14          stbi__stdio_read(void*, char*, int) [99]
+-----------------------------------------------
+                0.00    0.00      15/15          stbir__horizontal_resample_and_encode_first_scanline_from_scatter(stbir__info const*, stbir__per_split_info*) [91]
+[95]     0.0    0.00    0.00      15         stbir__fancy_alpha_unweight_4ch(float*, int) [95]
+-----------------------------------------------
+                0.00    0.00      15/15          stbir__horizontal_resample_and_encode_first_scanline_from_scatter(stbir__info const*, stbir__per_split_info*) [91]
+[96]     0.0    0.00    0.00      15         stbir__encode_uint8_srgb4_linearalpha(void*, int, float const*) [96]
+-----------------------------------------------
+                0.00    0.00      15/15          stbir__horizontal_resample_and_encode_first_scanline_from_scatter(stbir__info const*, stbir__per_split_info*) [91]
+[97]     0.0    0.00    0.00      15         stbir__horizontal_gather_7_channels_with_n_coeffs_mod0(float*, unsigned int, float const*, stbir__contributors const*, float const*, int) [97]
+-----------------------------------------------
+                0.00    0.00      15/15          AlbumAsciiArt::loadFromFile(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&) [4]
+[98]     0.0    0.00    0.00      15         std::vector<ColoredChar, std::allocator<ColoredChar> >::_M_default_append(unsigned long) [98]
+-----------------------------------------------
+                0.00    0.00       1/14          AlbumAsciiArt::loadFromFile(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&) [4]
+                0.00    0.00       6/14          stbi__getn(stbi__context*, unsigned char*, int) [104]
+                0.00    0.00       7/14          stbi__get32be(stbi__context*) [94]
+[99]     0.0    0.00    0.00      14         stbi__stdio_read(void*, char*, int) [99]
+-----------------------------------------------
+                0.00    0.00      13/13          stbir__vertical_scatter_loop(stbir__info const*, stbir__per_split_info*, int) [116]
+[100]    0.0    0.00    0.00      13         stbir__vertical_scatter_with_1_coeffs(float**, float const*, float const*, float const*) [100]
+-----------------------------------------------
+                0.00    0.00      12/12          stbi__compute_huffman_codes(stbi__zbuf*) [105]
+[101]    0.0    0.00    0.00      12         stbi__zbuild_huffman(stbi__zhuffman*, unsigned char const*, int) [101]
+-----------------------------------------------
+                0.00    0.00      10/10          Text::Text(unsigned int, unsigned int, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&, unsigned char, unsigned char, unsigned char) [108]
+[102]    0.0    0.00    0.00      10         void std::vector<ColoredChar, std::allocator<ColoredChar> >::_M_realloc_insert<ColoredChar>(__gnu_cxx::__normal_iterator<ColoredChar*, std::vector<ColoredChar, std::allocator<ColoredChar> > >, ColoredChar&&) [102]
+-----------------------------------------------
+                0.00    0.00       1/7           stbir__perform_build(STBIR_RESIZE*, int) [clone .constprop.0] [3]
+                0.00    0.00       2/7           stbir__calculate_filters(stbir__sampler*, stbir__sampler*, void*) [2]
+                0.00    0.00       4/7           stbir__set_sampler(stbir__sampler*, stbir_filter, float (*)(float, float, void*), float (*)(float, void*), stbir_edge, stbir__scale_info*, int, void*) [111]
+[103]    0.0    0.00    0.00       7         stbir__support_two(float, void*) [103]
+-----------------------------------------------
+                0.00    0.00       6/6           stbi__parse_png_file(stbi__png*, int, int) [114]
+[104]    0.0    0.00    0.00       6         stbi__getn(stbi__context*, unsigned char*, int) [104]
+                0.00    0.00       6/14          stbi__stdio_read(void*, char*, int) [99]
+-----------------------------------------------
+                0.00    0.00       6/6           stbi__parse_zlib(stbi__zbuf*, int) [113]
+[105]    0.0    0.00    0.00       6         stbi__compute_huffman_codes(stbi__zbuf*) [105]
+                0.00    0.00      12/12          stbi__zbuild_huffman(stbi__zhuffman*, unsigned char const*, int) [101]
+-----------------------------------------------
+                0.00    0.00       4/4           main [1]
+[106]    0.0    0.00    0.00       4         std::vector<Component*, std::allocator<Component*> >::push_back(Component* const&) [106]
+-----------------------------------------------
+                0.00    0.00       4/4           main [1]
+[107]    0.0    0.00    0.00       4         std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >::basic_string<std::allocator<char> >(char const*, std::allocator<char> const&) [107]
+-----------------------------------------------
+                0.00    0.00       3/3           main [1]
+[108]    0.0    0.00    0.00       3         Text::Text(unsigned int, unsigned int, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&, unsigned char, unsigned char, unsigned char) [108]
+                0.00    0.00      18/18          ColoredChar::ColoredChar(char32_t, unsigned int) [92]
+                0.00    0.00      10/10          void std::vector<ColoredChar, std::allocator<ColoredChar> >::_M_realloc_insert<ColoredChar>(__gnu_cxx::__normal_iterator<ColoredChar*, std::vector<ColoredChar, std::allocator<ColoredChar> > >, ColoredChar&&) [102]
+-----------------------------------------------
+                0.00    0.00       3/3           Menu::~Menu() [77]
+[109]    0.0    0.00    0.00       3         Text::~Text() [109]
+-----------------------------------------------
+                0.00    0.00       3/3           main [1]
+[110]    0.0    0.00    0.00       3         void std::vector<Component*, std::allocator<Component*> >::_M_realloc_insert<Component* const&>(__gnu_cxx::__normal_iterator<Component**, std::vector<Component*, std::allocator<Component*> > >, Component* const&) [110]
+-----------------------------------------------
+                0.00    0.00       2/2           stbir__perform_build(STBIR_RESIZE*, int) [clone .constprop.0] [3]
+[111]    0.0    0.00    0.00       2         stbir__set_sampler(stbir__sampler*, stbir_filter, float (*)(float, float, void*), float (*)(float, void*), stbir_edge, stbir__scale_info*, int, void*) [111]
+                0.00    0.00       4/7           stbir__support_two(float, void*) [103]
+-----------------------------------------------
+                0.00    0.00       1/1           stbi__load_and_postprocess_8bit(stbi__context*, int*, int*, int*, int) [117]
+[112]    0.0    0.00    0.00       1         stbi__load_main(stbi__context*, int*, int*, int*, int, stbi__result_info*, int) [112]
+                0.00    0.00       1/1           stbi__parse_png_file(stbi__png*, int, int) [114]
+-----------------------------------------------
+                0.00    0.00       1/1           stbi__parse_png_file(stbi__png*, int, int) [114]
+[113]    0.0    0.00    0.00       1         stbi__parse_zlib(stbi__zbuf*, int) [113]
+                0.00    0.00       6/6           stbi__compute_huffman_codes(stbi__zbuf*) [105]
+-----------------------------------------------
+                0.00    0.00       1/1           stbi__load_main(stbi__context*, int*, int*, int*, int, stbi__result_info*, int) [112]
+[114]    0.0    0.00    0.00       1         stbi__parse_png_file(stbi__png*, int, int) [114]
+                0.00    0.00      56/56          stbi__get16be(stbi__context*) [87]
+                0.00    0.00      16/16          stbi__get32be(stbi__context*) [94]
+                0.00    0.00       6/6           stbi__getn(stbi__context*, unsigned char*, int) [104]
+                0.00    0.00       1/1           stbi__parse_zlib(stbi__zbuf*, int) [113]
+                0.00    0.00       1/1           stbi__create_png_image_raw(stbi__png*, unsigned char*, unsigned int, int, unsigned int, unsigned int, int, int) [115]
+-----------------------------------------------
+                0.00    0.00       1/1           stbi__parse_png_file(stbi__png*, int, int) [114]
+[115]    0.0    0.00    0.00       1         stbi__create_png_image_raw(stbi__png*, unsigned char*, unsigned int, int, unsigned int, unsigned int, int, int) [115]
+                0.00    0.00     300/300         stbi__create_png_alpha_expand8(unsigned char*, unsigned char*, unsigned int, int) [82]
+-----------------------------------------------
+                0.00    0.00       1/1           AlbumAsciiArt::loadFromFile(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&) [4]
+[116]    0.0    0.00    0.00       1         stbir__vertical_scatter_loop(stbir__info const*, stbir__per_split_info*, int) [116]
+                0.00    0.00     300/300         stbir__decode_scanline(stbir__info const*, int, float*) [80]
+                0.00    0.00     228/228         stbir__vertical_scatter_with_4_coeffs_cont(float**, float const*, float const*, float const*) [84]
+                0.00    0.00      51/51          stbir__vertical_scatter_with_3_coeffs_cont(float**, float const*, float const*, float const*) [88]
+                0.00    0.00      20/20          stbir__vertical_scatter_with_2_coeffs_cont(float**, float const*, float const*, float const*) [90]
+                0.00    0.00      15/19          stbir__horizontal_resample_and_encode_first_scanline_from_scatter(stbir__info const*, stbir__per_split_info*) [91]
+                0.00    0.00      13/13          stbir__vertical_scatter_with_1_coeffs(float**, float const*, float const*, float const*) [100]
+                0.00    0.00       1/1           stbir__vertical_scatter_with_2_coeffs(float**, float const*, float const*, float const*) [118]
+-----------------------------------------------
+                0.00    0.00       1/1           AlbumAsciiArt::loadFromFile(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&) [4]
+[117]    0.0    0.00    0.00       1         stbi__load_and_postprocess_8bit(stbi__context*, int*, int*, int*, int) [117]
+                0.00    0.00       1/1           stbi__load_main(stbi__context*, int*, int*, int*, int, stbi__result_info*, int) [112]
+-----------------------------------------------
+                0.00    0.00       1/1           stbir__vertical_scatter_loop(stbir__info const*, stbir__per_split_info*, int) [116]
+[118]    0.0    0.00    0.00       1         stbir__vertical_scatter_with_2_coeffs(float**, float const*, float const*, float const*) [118]
+-----------------------------------------------
+                0.00    0.00       1/1           Menu::~Menu() [77]
+[119]    0.0    0.00    0.00       1         AlbumAsciiArt::~AlbumAsciiArt() [119]
+-----------------------------------------------
+                0.00    0.00       1/1           main [1]
+[120]    0.0    0.00    0.00       1         Menu::render() [120]
+                0.00    0.00    1840/1841        Menu::~Menu() [77]
+                0.00    0.00     450/450         AlbumAsciiArt::pixelAt(int, int) const [79]
+                0.00    0.00      18/18          Text::pixelAt(int, int) const [93]
+-----------------------------------------------
+                0.00    0.00       1/1           main [1]
+[121]    0.0    0.00    0.00       1         Menu::Menu(unsigned int, unsigned int) [121]
+                0.00    0.00       1/1           std::vector<std::vector<ColoredChar, std::allocator<ColoredChar> >, std::allocator<std::vector<ColoredChar, std::allocator<ColoredChar> > > >::_M_fill_insert(__gnu_cxx::__normal_iterator<std::vector<ColoredChar, std::allocator<ColoredChar> >*, std::vector<std::vector<ColoredChar, std::allocator<ColoredChar> >, std::allocator<std::vector<ColoredChar, std::allocator<ColoredChar> > > > >, unsigned long, std::vector<ColoredChar, std::allocator<ColoredChar> > const&) [122]
+-----------------------------------------------
+                0.00    0.00       1/1           Menu::Menu(unsigned int, unsigned int) [121]
+[122]    0.0    0.00    0.00       1         std::vector<std::vector<ColoredChar, std::allocator<ColoredChar> >, std::allocator<std::vector<ColoredChar, std::allocator<ColoredChar> > > >::_M_fill_insert(__gnu_cxx::__normal_iterator<std::vector<ColoredChar, std::allocator<ColoredChar> >*, std::vector<std::vector<ColoredChar, std::allocator<ColoredChar> >, std::allocator<std::vector<ColoredChar, std::allocator<ColoredChar> > > > >, unsigned long, std::vector<ColoredChar, std::allocator<ColoredChar> > const&) [122]
+                0.00    0.00       1/1           std::vector<ColoredChar, std::allocator<ColoredChar> >* std::__do_uninit_fill_n<std::vector<ColoredChar, std::allocator<ColoredChar> >*, unsigned long, std::vector<ColoredChar, std::allocator<ColoredChar> > >(std::vector<ColoredChar, std::allocator<ColoredChar> >*, unsigned long, std::vector<ColoredChar, std::allocator<ColoredChar> > const&) [124]
+-----------------------------------------------
+                0.00    0.00       1/1           AlbumAsciiArt::loadFromFile(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&) [4]
+[123]    0.0    0.00    0.00       1         std::vector<std::vector<ColoredChar, std::allocator<ColoredChar> >, std::allocator<std::vector<ColoredChar, std::allocator<ColoredChar> > > >::_M_default_append(unsigned long) [123]
+-----------------------------------------------
+                0.00    0.00       1/1           std::vector<std::vector<ColoredChar, std::allocator<ColoredChar> >, std::allocator<std::vector<ColoredChar, std::allocator<ColoredChar> > > >::_M_fill_insert(__gnu_cxx::__normal_iterator<std::vector<ColoredChar, std::allocator<ColoredChar> >*, std::vector<std::vector<ColoredChar, std::allocator<ColoredChar> >, std::allocator<std::vector<ColoredChar, std::allocator<ColoredChar> > > > >, unsigned long, std::vector<ColoredChar, std::allocator<ColoredChar> > const&) [122]
+[124]    0.0    0.00    0.00       1         std::vector<ColoredChar, std::allocator<ColoredChar> >* std::__do_uninit_fill_n<std::vector<ColoredChar, std::allocator<ColoredChar> >*, unsigned long, std::vector<ColoredChar, std::allocator<ColoredChar> > >(std::vector<ColoredChar, std::allocator<ColoredChar> >*, unsigned long, std::vector<ColoredChar, std::allocator<ColoredChar> > const&) [124]
+                0.00    0.00      23/23          ColoredChar* std::__do_uninit_copy<__gnu_cxx::__normal_iterator<ColoredChar const*, std::vector<ColoredChar, std::allocator<ColoredChar> > >, ColoredChar*>(__gnu_cxx::__normal_iterator<ColoredChar const*, std::vector<ColoredChar, std::allocator<ColoredChar> > >, __gnu_cxx::__normal_iterator<ColoredChar const*, std::vector<ColoredChar, std::allocator<ColoredChar> > >, ColoredChar*) [89]
+-----------------------------------------------
+
+ This table describes the call tree of the program, and was sorted by
+ the total amount of time spent in each function and its children.
+
+ Each entry in this table consists of several lines.  The line with the
+ index number at the left hand margin lists the current function.
+ The lines above it list the functions that called this function,
+ and the lines below it list the functions this one called.
+ This line lists:
+     index	A unique number given to each element of the table.
+		Index numbers are sorted numerically.
+		The index number is printed next to every function name so
+		it is easier to look up where the function is in the table.
+
+     % time	This is the percentage of the `total' time that was spent
+		in this function and its children.  Note that due to
+		different viewpoints, functions excluded by options, etc,
+		these numbers will NOT add up to 100%.
+
+     self	This is the total amount of time spent in this function.
+
+     children	This is the total amount of time propagated into this
+		function by its children.
+
+     called	This is the number of times the function was called.
+		If the function called itself recursively, the number
+		only includes non-recursive calls, and is followed by
+		a `+' and the number of recursive calls.
+
+     name	The name of the current function.  The index number is
+		printed after it.  If the function is a member of a
+		cycle, the cycle number is printed between the
+		function's name and the index number.
+
+
+ For the function's parents, the fields have the following meanings:
+
+     self	This is the amount of time that was propagated directly
+		from the function into this parent.
+
+     children	This is the amount of time that was propagated from
+		the function's children into this parent.
+
+     called	This is the number of times this parent called the
+		function `/' the total number of times the function
+		was called.  Recursive calls to the function are not
+		included in the number after the `/'.
+
+     name	This is the name of the parent.  The parent's index
+		number is printed after it.  If the parent is a
+		member of a cycle, the cycle number is printed between
+		the name and the index number.
+
+ If the parents of the function cannot be determined, the word
+ `<spontaneous>' is printed in the `name' field, and all the other
+ fields are blank.
+
+ For the function's children, the fields have the following meanings:
+
+     self	This is the amount of time that was propagated directly
+		from the child into the function.
+
+     children	This is the amount of time that was propagated from the
+		child's children to the function.
+
+     called	This is the number of times the function called
+		this child `/' the total number of times the child
+		was called.  Recursive calls by the child are not
+		listed in the number after the `/'.
+
+     name	This is the name of the child.  The child's index
+		number is printed after it.  If the child is a
+		member of a cycle, the cycle number is printed
+		between the name and the index number.
+
+ If there are any cycles (circles) in the call graph, there is an
+ entry for the cycle-as-a-whole.  This entry shows who called the
+ cycle (as parents) and the members of the cycle (as children.)
+ The `+' recursive calls entry shows the number of function calls that
+ were internal to the cycle, and the calls entry for each member shows,
+ for that member, how many times it was called from other members of
+ the cycle.
+
+Copyright (C) 2012-2024 Free Software Foundation, Inc.
+
+Copying and distribution of this file, with or without modification,
+are permitted in any medium without royalty provided the copyright
+notice and this notice are preserved.
+
+Index by function name
+
+ [104] stbi__getn(stbi__context*, unsigned char*, int) [116] stbir__vertical_scatter_loop(stbir__info const*, stbir__per_split_info*, int) [120] Menu::render()
+  [87] stbi__get16be(stbi__context*) [81] stbir__fancy_alpha_weight_4ch(float*, int) [121] Menu::Menu(unsigned int, unsigned int)
+  [94] stbi__get32be(stbi__context*) [82] stbi__create_png_alpha_expand8(unsigned char*, unsigned char*, unsigned int, int) [77] Menu::~Menu()
+ [112] stbi__load_main(stbi__context*, int*, int*, int*, int, stbi__result_info*, int) [117] stbi__load_and_postprocess_8bit(stbi__context*, int*, int*, int*, int) [108] Text::Text(unsigned int, unsigned int, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&, unsigned char, unsigned char, unsigned char)
+ [113] stbi__parse_zlib(stbi__zbuf*, int) [95] stbir__fancy_alpha_unweight_4ch(float*, int) [109] Text::~Text()
+  [99] stbi__stdio_read(void*, char*, int) [83] stbir__decode_uint8_srgb4_linearalpha(float*, int, void const*) [79] AlbumAsciiArt::pixelAt(int, int) const
+ [111] stbir__set_sampler(stbir__sampler*, stbir_filter, float (*)(float, float, void*), float (*)(float, void*), stbir_edge, stbir__scale_info*, int, void*) [96] stbir__encode_uint8_srgb4_linearalpha(void*, int, float const*) [93] Text::pixelAt(int, int) const
+ [103] stbir__support_two(float, void*) [100] stbir__vertical_scatter_with_1_coeffs(float**, float const*, float const*, float const*) [98] std::vector<ColoredChar, std::allocator<ColoredChar> >::_M_default_append(unsigned long)
+  [78] stbir__insert_coeff(stbir__contributors*, float*, int, float, int) [118] stbir__vertical_scatter_with_2_coeffs(float**, float const*, float const*, float const*) [102] void std::vector<ColoredChar, std::allocator<ColoredChar> >::_M_realloc_insert<ColoredChar>(__gnu_cxx::__normal_iterator<ColoredChar*, std::vector<ColoredChar, std::allocator<ColoredChar> > >, ColoredChar&&)
+ [114] stbi__parse_png_file(stbi__png*, int, int) [90] stbir__vertical_scatter_with_2_coeffs_cont(float**, float const*, float const*, float const*) [110] void std::vector<Component*, std::allocator<Component*> >::_M_realloc_insert<Component* const&>(__gnu_cxx::__normal_iterator<Component**, std::vector<Component*, std::allocator<Component*> > >, Component* const&)
+ [101] stbi__zbuild_huffman(stbi__zhuffman*, unsigned char const*, int) [88] stbir__vertical_scatter_with_3_coeffs_cont(float**, float const*, float const*, float const*) [106] std::vector<Component*, std::allocator<Component*> >::push_back(Component* const&)
+   [3] stbir__perform_build(STBIR_RESIZE*, int) [clone .constprop.0] [84] stbir__vertical_scatter_with_4_coeffs_cont(float**, float const*, float const*, float const*) [122] std::vector<std::vector<ColoredChar, std::allocator<ColoredChar> >, std::allocator<std::vector<ColoredChar, std::allocator<ColoredChar> > > >::_M_fill_insert(__gnu_cxx::__normal_iterator<std::vector<ColoredChar, std::allocator<ColoredChar> >*, std::vector<std::vector<ColoredChar, std::allocator<ColoredChar> >, std::allocator<std::vector<ColoredChar, std::allocator<ColoredChar> > > > >, unsigned long, std::vector<ColoredChar, std::allocator<ColoredChar> > const&)
+  [80] stbir__decode_scanline(stbir__info const*, int, float*) [97] stbir__horizontal_gather_7_channels_with_n_coeffs_mod0(float*, unsigned int, float const*, stbir__contributors const*, float const*, int) [123] std::vector<std::vector<ColoredChar, std::allocator<ColoredChar> >, std::allocator<std::vector<ColoredChar, std::allocator<ColoredChar> > > >::_M_default_append(unsigned long)
+  [85] stbir__edge_clamp_full(int, int) [91] stbir__horizontal_resample_and_encode_first_scanline_from_scatter(stbir__info const*, stbir__per_split_info*) [107] std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >::basic_string<std::allocator<char> >(char const*, std::allocator<char> const&)
+  [86] stbir__filter_mitchell(float, float, void*) [92] ColoredChar::ColoredChar(char32_t, unsigned int) [89] ColoredChar* std::__do_uninit_copy<__gnu_cxx::__normal_iterator<ColoredChar const*, std::vector<ColoredChar, std::allocator<ColoredChar> > >, ColoredChar*>(__gnu_cxx::__normal_iterator<ColoredChar const*, std::vector<ColoredChar, std::allocator<ColoredChar> > >, __gnu_cxx::__normal_iterator<ColoredChar const*, std::vector<ColoredChar, std::allocator<ColoredChar> > >, ColoredChar*)
+   [2] stbir__calculate_filters(stbir__sampler*, stbir__sampler*, void*) [4] AlbumAsciiArt::loadFromFile(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&) [124] std::vector<ColoredChar, std::allocator<ColoredChar> >* std::__do_uninit_fill_n<std::vector<ColoredChar, std::allocator<ColoredChar> >*, unsigned long, std::vector<ColoredChar, std::allocator<ColoredChar> > >(std::vector<ColoredChar, std::allocator<ColoredChar> >*, unsigned long, std::vector<ColoredChar, std::allocator<ColoredChar> > const&)
+ [115] stbi__create_png_image_raw(stbi__png*, unsigned char*, unsigned int, int, unsigned int, unsigned int, int, int) [5] AlbumAsciiArt::AlbumAsciiArt(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >, unsigned int, unsigned int)
+ [105] stbi__compute_huffman_codes(stbi__zbuf*) [119] AlbumAsciiArt::~AlbumAsciiArt()

@@ -2,8 +2,8 @@
 
 #include <cstdint>
 #include <string>
-#include "Component/Component.h"
-#include "ColoredChar/ColoredChar.h"
+#include "../Component.h"
+#include "../../ColoredChar/ColoredChar.h"
 
 class Button : public Component {
 private:

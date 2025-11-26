@@ -14,7 +14,8 @@
 #include <string>
 
 
-// g++ main.cpp -g \                                 
+// g++ main.cpp \
+//   -g                
 //   -I/opt/homebrew/opt/openssl@3/include \
 //   -L/opt/homebrew/opt/openssl@3/lib \
 //   -lssl -lcrypto
@@ -23,6 +24,7 @@ struct URL {
     std::string host;
     std::string path;
     std::string port;
+    // https://example.com:port/dir/ect/ory
 
     URL() : protocol("http"), host(""), path("/"), port("80") {}
     /**
@@ -71,12 +73,11 @@ int main() {
     // https://m.media-amazon.com/images/I/81yLya2IJtL._UF1000,1000_QL80_.jpg
     // https://www.geeksforgeeks.org/cpp/socket-programming-in-cpp/
 
-    // http://1153288396.rsc.cdn77.org/http2/tiles_final/tile_106.png
     // http://httpforever.com/
 
     // clang-format off
     URL a(
-    "http://httpbin.org/image/jpeg");
+    "https://m.media-amazon.com/images/I/81yLya2IJtL._UF1000,1000_QL80_.jpg");
     // clang-format on
 
     // Address info struct to put data into

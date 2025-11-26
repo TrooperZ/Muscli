@@ -21,15 +21,7 @@
 
 #include "ColoredChar_Constants.h"
 #include "ColoredChar_Helpers.h"
-
-/**
- * @brief A struct representing a UTF-8 encoded character.
- *
- */
-struct Utf8Char {
-    uint8_t* bytes; // pointer to byte array, we only allocate what we need
-    uint8_t length;  // number of bytes actually used (1-4)
-};
+#include "Utf8Char/Utf8Char.h"
 
 /**
  * @brief A struct representing a colored character.
@@ -41,14 +33,47 @@ struct Utf8Char {
 // TODO: Add support for systems which do not support full unicode and full
 // colors.
 struct ColoredChar {
-    Utf8Char c = {new uint8_t[1]{' '}, 1};        // default: space character
+    Utf8Char c;                   // default: space character
     uint32_t rgba = CCHAR_WHITE;  // default: white opaque
+
+    // Since Utf8Char manages copy/move semantics safely, we can call default
+    // here without issues.
 
     /**
      * @brief Construct a new Colored Char object
      *
      */
     ColoredChar() = default;
+
+    /**
+     * @brief Copy constructor
+     *
+     * @param other the other ColoredChar to copy from
+     */
+    ColoredChar(const ColoredChar& other) = default;
+
+    /**
+     * @brief Copy assignment operator
+     *
+     * @param other the other ColoredChar to copy from
+     * @return ColoredChar&
+     */
+    ColoredChar& operator=(ColoredChar const& other) = default;
+
+    /**
+     * @brief Move constructor
+     *
+     * @param other the other ColoredChar to move from
+     */
+    ColoredChar(ColoredChar&& other) noexcept = default;
+
+    /**
+     * @brief Move assignment operator
+     *
+     * @param other the other ColoredChar to move from
+     * @return ColoredChar&
+     */
+    ColoredChar& operator=(ColoredChar&& other) noexcept = default;
 
     /**
      * @brief Construct a new Colored Char object with given character and color
@@ -60,6 +85,7 @@ struct ColoredChar {
         Utf8Char utf8 = {};
         std::string utf8str = toUTF8(c);
         utf8.length = static_cast<uint8_t>(utf8str.size());
+        delete[] utf8.bytes;
         utf8.bytes = new uint8_t[utf8.length];
         for (size_t i = 0; i < utf8.length; ++i) {
             utf8.bytes[i] = static_cast<uint8_t>(utf8str[i]);
@@ -90,6 +116,13 @@ struct ColoredChar {
  * @return std::ostream&
  */
 inline std::ostream& operator<<(std::ostream& os, const ColoredChar& cc) {
-    os << cc.ansiColor() << std::string(cc.c.bytes, cc.c.bytes + cc.c.length) << ANSI_RESET;
+    os << cc.ansiColor();
+    if (cc.c.bytes != nullptr && cc.c.length > 0) {
+        os.write(reinterpret_cast<const char*>(cc.c.bytes),
+                 static_cast<std::streamsize>(cc.c.length));
+    } else {
+        os << ' ';  // fallback for empty UTF-8 char
+    }
+    os << ANSI_RESET;
     return os;
 }

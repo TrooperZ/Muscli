@@ -15,10 +15,9 @@
 
 #include <cstdint>
 #include <string>
-#include <variant>
 #include <vector>
 
-#include "Component/Component.h"
+#include "../Component.h"
 
 /**
  * @brief Represents a text object.

@@ -8,15 +8,16 @@
 #include <sstream>
 #include <string>
 #include <vector>
+#include <memory>
 
-#include "ColoredChar/ColoredChar.h"
-#include "Component/Component.h"
+#include "../../ColoredChar/ColoredChar.h"
+#include "../Component.h"
 
 #define STB_IMAGE_IMPLEMENTATION
-#include "stb/stb_image.h"
+#include "../../stb/stb_image.h"
 
 #define STB_IMAGE_RESIZE_IMPLEMENTATION
-#include "stb/stb_image_resize2.h"
+#include "../../stb/stb_image_resize2.h"
 
 
 class AlbumAsciiArt : public Component {

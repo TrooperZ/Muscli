@@ -1,53 +1,26 @@
 /**
- * @file Menu.h
+ * @file Menu.cpp
  * @author Amin Karic
- * @brief Menu class definition
+ * @brief
  * @version 0.1
- * @date 2025-11-17
+ * @date 2025-11-25
  *
  * @copyright Copyright (c) 2025
  *
- * This class is the big container for the music player. It handles rendering
- * the components that make up each menu screen.
+ * Implementation file for Menu class.
  */
-#pragma once
 
-#include <cstdint>
-#include <iostream>
-#include <vector>
+#include <memory>
 
-#include "ColoredChar/ColoredChar.h"
-#include "Component/Component.h"
+#include "Menu.h"
 
-/**
- * @brief Represents a menu object. Holds components and handles rendering.
- */
-class Menu {
-   private:
-    std::vector<Component*> components;  // Components in the menu to render,
-                                         // first component is bottommost
-    std::vector<std::vector<ColoredChar>> renderBuffer;  // Render buffer for
-                                                         // the menu
-
-   protected:
-    uint32_t width;
-    uint32_t height;
-
-   public:
-    Menu() = default;
-    Menu(uint32_t w, uint32_t h);
-    ~Menu();
-    void addComponent(Component* c);
-    void render();
-};
 /**
  * @brief Construct a new Menu object. Creates a frame around the menu.
  *
  * @param w width of menu
  * @param h height of menu
  */
-
-inline Menu::Menu(uint32_t w, uint32_t h) : width(w), height(h) {
+Menu::Menu(uint32_t w, uint32_t h) : width(w), height(h) {
     // Initialize render buffer size
     renderBuffer.resize(h, std::vector<ColoredChar>(w));
     for (auto& row : renderBuffer) {
@@ -81,16 +54,12 @@ inline Menu::Menu(uint32_t w, uint32_t h) : width(w), height(h) {
  * are rendered in the order they were added, first added is bottommost.
  *
  */
-inline void Menu::render() {
+void Menu::render() {
     // Put the updated components into the render buffer
     for (const auto& comp : components) {
         // Render the component pixel by pixel
-        std::cout << "Rendering component at (" << comp->getX() << ", "
-                  << comp->getY() << ") with size (" << comp->getWidth()
-                  << "x" << comp->getHeight() << ")\n";
         for (uint32_t y = 0; y < comp->getHeight(); ++y) {
             for (uint32_t x = 0; x < comp->getWidth(); ++x) {
-                std::cout << "Rendering pixel at (" << x << ", " << y << ")\n";
                 // We don't want anything on the border, so we add an offset of
                 // 1
                 int bufX = comp->getX() + x + 1;
@@ -115,19 +84,14 @@ inline void Menu::render() {
 }
 
 /**
- * @brief Adds a component to the menu.
- *
- * @param c Component to add
- */
-inline void Menu::addComponent(Component* c) { components.push_back(c); }
-
-/**
  * @brief Destroy the Menu object.
  *
  */
-inline Menu::~Menu() {
+Menu::~Menu() {
     width = 0;
     height = 0;
+	
+	// No need to manually delete components since we are using unique_ptr
     components.clear();
     renderBuffer.clear();
 }
