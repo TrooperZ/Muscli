@@ -2,20 +2,20 @@
 #include <arpa/inet.h>
 #include <netdb.h>
 #include <netinet/in.h>
+#include <openssl/crypto.h>
+#include <openssl/err.h>
+#include <openssl/ssl.h>
 #include <sys/socket.h>
 #include <sys/types.h>
 #include <unistd.h>
-#include <openssl/ssl.h>
-#include <openssl/err.h>
-#include <openssl/crypto.h>
+
 #include <fstream>
 #include <iostream>
 #include <stdexcept>
 #include <string>
 
-
 // g++ main.cpp \
-//   -g                
+//   -g
 //   -I/opt/homebrew/opt/openssl@3/include \
 //   -L/opt/homebrew/opt/openssl@3/lib \
 //   -lssl -lcrypto
@@ -75,10 +75,19 @@ int main() {
 
     // http://httpforever.com/
 
+    // https://medium.com/@ilya.korovin/tls-handshake-cpp-fd9eb56831bd
+
     // clang-format off
     URL a(
     "https://m.media-amazon.com/images/I/81yLya2IJtL._UF1000,1000_QL80_.jpg");
     // clang-format on
+
+    // This initializes the SSL ciphers
+    SSL_library_init();
+    // And this initalizes the text error messages for OpenSSL
+    SSL_load_error_strings();
+
+
 
     // Address info struct to put data into
     struct addrinfo *res = nullptr;
@@ -150,7 +159,7 @@ int main() {
                 std::string chunk(buffer, n);
                 std::cout << "Headers: \n\n " << chunk;
                 size_t endHeadersIndex = chunk.find("\r\n\r\n");
-                
+
                 if (endHeadersIndex != std::string::npos) {
                     std::string body =
                         chunk.substr(endHeadersIndex + 4);  // body begins here

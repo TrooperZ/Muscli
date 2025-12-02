@@ -72,3 +72,17 @@ class Menu {
      */
     void render();
 };
+
+
+/**
+ * @brief Destroy the Menu object.
+ *
+ */
+inline Menu::~Menu() {
+    width = 0;
+    height = 0;
+	
+	// No need to manually delete components since we are using unique_ptr
+    components.clear();
+    renderBuffer.clear();
+}

@@ -1,4 +1,14 @@
-// AlbumAsciiArt.h
+/**
+ * @file AlbumAsciiArt.h
+ * @author Amin Karic
+ * @brief AlbumAsciiArt component class definition
+ * @version 0.1
+ * @date 2025-11-28
+ * 
+ * @copyright Copyright (c) 2025
+ * 
+ * This class represents an Album Ascii Art component that can be added to a Menu.
+ */
 #pragma once
 
 #include <algorithm>
@@ -20,19 +30,104 @@
 #include "../../stb/stb_image_resize2.h"
 
 
+/**
+ * @brief Represents an Album Ascii Art component.
+ * 
+ */
 class AlbumAsciiArt : public Component {
    private:
     std::vector<std::vector<ColoredChar>> content;
 
    public:
-    AlbumAsciiArt();
+   /**
+    * @brief Construct a new default Album Ascii Art object
+    * 
+    */
+    AlbumAsciiArt() : Component(0, 0, 30, 15), content({{}}) {};
+
+    /**
+     * @brief Construct a new Album Ascii Art object
+     * 
+     * @param filepath file to load ASCII art from
+     * @param x x coordinate
+     * @param y y coordinate
+     */
     AlbumAsciiArt(std::string filepath, uint32_t x, uint32_t y);
+
+    /**
+     * @brief Construct a new Album Ascii Art object
+     * 
+     * @param filepath file to load ASCII art from
+     * @param x x coordinate
+     * @param y y coordinate
+     * @param w width
+     * @param h height
+     */
+    AlbumAsciiArt(std::string filepath, uint32_t x, uint32_t y, uint32_t w, uint32_t h);
+
+    /**
+     * @brief Construct a new Album Ascii Art object by copying another
+     * 
+     * @param other AlbumAsciiArt to copy from
+     */
+    AlbumAsciiArt(const AlbumAsciiArt& other) = default;
+
+    /**
+     * @brief Copy assignment operator
+     * 
+     * @param other AlbumAsciiArt to copy from
+     * @return AlbumAsciiArt& 
+     */
+    AlbumAsciiArt& operator=(const AlbumAsciiArt& other) = default;
+
+    /**
+     * @brief Construct a new Album Ascii Art object by moving another
+     * 
+     * @param other AlbumAsciiArt to move from
+     */
+    AlbumAsciiArt(AlbumAsciiArt&& other) noexcept = default;
+
+    /**
+     * @brief Assignment operator by moving another
+     * 
+     * @param other other AlbumAsciiArt to move from
+     * @return AlbumAsciiArt& 
+     */
+    AlbumAsciiArt& operator=(AlbumAsciiArt&& other) noexcept = default;
+
+    /**
+     * @brief Destroy the Album Ascii Art object
+     * 
+     */
     ~AlbumAsciiArt();
+
+    /**
+     * @brief Get the Content object
+     * 
+     * @return std::vector<std::vector<ColoredChar>> the raw 2d array of ColoredChar representing the ASCII art
+     */
     std::vector<std::vector<ColoredChar>> getContent() const { return content; }
+
+    /**
+     * @brief Load image and create ASCII art from file
+     * 
+     * @param filepath file to load image from
+     * @return true success
+     * @return false failure
+     */
     bool loadFromFile(const std::string& filepath);
+
+    // ! TESTING PURPOSES ONLY DELETE ONCE DONE
     void AlbumAsciiArt_Test();
 
-    virtual ColoredChar pixelAt(int x, int y) const {
+    /**
+     * @brief Return the ColoredChar at given pixel coordinates
+     * 
+     * @param x x coordinate
+     * @param y y coordinate
+     * @return ColoredChar 
+     */
+    virtual ColoredChar pixelAt(int32_t x, int32_t y) const {
         if (x < 0 || y < 0 || x >= static_cast<int>(getWidth()) ||
             y >= static_cast<int>(getHeight())) {
             return ColoredChar(' ', 0x000000FF);
@@ -41,7 +136,7 @@ class AlbumAsciiArt : public Component {
     }
 };
 
-inline AlbumAsciiArt::AlbumAsciiArt() : Component(0, 0, 30, 15), content({{}}) {}
+
 
 inline AlbumAsciiArt::AlbumAsciiArt(std::string filepath, uint32_t x,
                                  uint32_t y)
@@ -97,8 +192,6 @@ inline bool AlbumAsciiArt::loadFromFile(const std::string& filepath) {
                 static_cast<uint8_t>(0.299 * r + 0.587 * g + 0.114 * b);
 
             // Map brightness to ASCII character
-
-
             uint32_t color = (static_cast<uint32_t>(r) << 24) |
                              (static_cast<uint32_t>(g) << 16) |
                              (static_cast<uint32_t>(b) << 8) |

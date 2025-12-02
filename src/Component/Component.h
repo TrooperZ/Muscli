@@ -27,11 +27,66 @@ class Component {
     uint32_t height;
 
    public:
+    /**
+     * @brief Construct a new default constructed Component object
+     *
+     */
     Component() = default;
-    Component(uint32_t xCoord, uint32_t yCoord);
-    Component(uint32_t xCoord, uint32_t yCoord, uint32_t w, uint32_t h);
+
+    /**
+     * @brief Construct a new Component object from coordinates.
+     *
+     * @param xCoord x coordinate
+     * @param yCoord y coordinate
+     */
+    Component(uint32_t xCoord, uint32_t yCoord)
+        : x(xCoord), y(yCoord), width(0), height(0) {}
+
+    /**
+     * @brief Construct a new Component object from coordinates and dimensions.
+     *
+     * @param xCoord x coordinate
+     * @param yCoord y coordinate
+     * @param w width
+     * @param h height
+     */
+    Component(uint32_t xCoord, uint32_t yCoord, uint32_t w, uint32_t h)
+        : x(xCoord), y(yCoord), width(w), height(h) {}
+
+    /**
+     * @brief Copy constructor
+     *
+     * @param other the other Component to copy from
+     */
     Component(const Component& other) = default;
+
+    /**
+     * @brief Copy assignment operator
+     *
+     * @param other the other Component to copy from
+     * @return Component&
+     */
     Component& operator=(Component const& other) = default;
+
+    /**
+     * @brief Move constructor
+     *
+     * @param other the other Component to move from
+     */
+    Component(Component&& other) noexcept = default;
+
+    /**
+     * @brief Move assignment operator
+     *
+     * @param other the other Component to move from
+     * @return Component&
+     */
+    Component& operator=(Component&& other) noexcept = default;
+
+    /**
+     * @brief Destroys the Component object
+     *
+     */
     virtual ~Component();
 
     /**
@@ -95,29 +150,18 @@ class Component {
      */
     void setY(uint32_t yCoord) { y = yCoord; }
 
-    virtual ColoredChar pixelAt(int x, int y) const;
+    /**
+     * @brief Default pixelAt function.
+     *
+     * This function is intended to be overridden by derived classes. If it is
+     * not, it will return a blank character.
+     *
+     * @param x x coordinate
+     * @param y y coordinate
+     * @return ColoredChar at (x, y)
+     */
+    virtual ColoredChar pixelAt(int32_t x, int32_t y) const { return BLANK_CHARACTER; }
 };
-
-/**
- * @brief Parameterized constructor with only coordinates.
- *
- * @param xCoord horizontal coordinate
- * @param yCoord vertical coordinate
- */
-inline Component::Component(uint32_t xCoord, uint32_t yCoord)
-    : x(xCoord), y(yCoord), width(0), height(0) {}
-
-/**
- * @brief Parameterized constructor with dimensions and coordinates.
- *
- * @param xCoord horizontal coordinate
- * @param yCoord vertical coordinate
- * @param w width of the component
- * @param h height of the component
- */
-inline Component::Component(uint32_t xCoord, uint32_t yCoord, uint32_t w,
-                            uint32_t h)
-    : x(xCoord), y(yCoord), width(w), height(h) {}
 
 /**
  * @brief Destroys the Component object
@@ -127,18 +171,4 @@ inline Component::~Component() {
     y = 0;
     width = 0;
     height = 0;
-}
-
-/**
- * @brief Default pixelAt function.
- *
- * This function is intended to be overridden by derived classes. If it is not,
- * it will return a blank character.
- *
- * @param x x coordinate
- * @param y y coordinate
- * @return ColoredChar at (x, y)
- */
-inline ColoredChar Component::pixelAt(int x, int y) const {
-    return BLANK_CHARACTER;
 }

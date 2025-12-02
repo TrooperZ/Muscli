@@ -23,7 +23,7 @@ public:
     void setBackground(uint32_t c) { bgColor = c; }
     void setPressed(bool p) { pressed = p; }
     bool isPressed() const { return pressed; }
-    virtual ColoredChar pixelAt(int x, int y) const;
+    virtual ColoredChar pixelAt(int32_t x, int32_t y) const;
 };
 
 inline Button::Button() : Component(), text(""), fgColor(0xFFFFFFFF), bgColor(0x000000FF), pressed(false) {}
@@ -37,7 +37,7 @@ inline Button::~Button() {
     pressed = false;
 }
 
-inline ColoredChar Button::pixelAt(int x, int y) const {
+inline ColoredChar Button::pixelAt(int32_t x, int32_t y) const {
     int lx = x - static_cast<int>(getX());
     int ly = y - static_cast<int>(getY());
     if (lx < 0 || ly < 0 || static_cast<uint32_t>(lx) >= getWidth() || static_cast<uint32_t>(ly) >= getHeight())

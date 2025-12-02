@@ -60,8 +60,7 @@ void Menu::render() {
         // Render the component pixel by pixel
         for (uint32_t y = 0; y < comp->getHeight(); ++y) {
             for (uint32_t x = 0; x < comp->getWidth(); ++x) {
-                // We don't want anything on the border, so we add an offset of
-                // 1
+                // We don't want anything on the border, so we add an offset
                 int bufX = comp->getX() + x + 1;
                 int bufY = comp->getY() + y + 1;
 
@@ -81,17 +80,4 @@ void Menu::render() {
         }
         std::cout << '\n';
     }
-}
-
-/**
- * @brief Destroy the Menu object.
- *
- */
-Menu::~Menu() {
-    width = 0;
-    height = 0;
-	
-	// No need to manually delete components since we are using unique_ptr
-    components.clear();
-    renderBuffer.clear();
 }
