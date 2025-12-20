@@ -1,13 +1,18 @@
 /**
  * @file Component.h
  * @author Amin Karic
- * @brief Component class definition.
- * @version 0.1
+ * @brief Abstract base class for all UI components.
  * @date 2025-11-17
  *
  * @copyright Copyright (c) 2025
  *
- * This class represents a general component that can be added to a Menu.
+ * @details
+ * Component represents a UI element positioned in a 2D coordinate
+ * space. It provides shared layout state (position and size) and defines the
+ * rendering contract via a pure virtual pixelAt() function.
+ *
+ * Component is intended to be subclassed; instantiating it directly is not
+ * meaningful.
  */
 
 #pragma once
@@ -17,158 +22,56 @@
 #include "../ColoredChar/ColoredChar.h"
 
 /**
- * @brief Represents a component object.
+ * @brief Base class for renderable UI components.
+ *
+ * @details
+ * Derived classes must implement pixelAt() to describe how the component is
+ * rendered at a given coordinate. Coordinates passed to pixelAt() are relative
+ * to the component's local origin.
  */
 class Component {
-   private:
-    uint32_t x;
-    uint32_t y;
+   protected:
+    int32_t x;
+    int32_t y;
     uint32_t width;
     uint32_t height;
 
    public:
-    /**
-     * @brief Construct a new default constructed Component object
-     *
-     */
     Component() = default;
-
-    /**
-     * @brief Construct a new Component object from coordinates.
-     *
-     * @param xCoord x coordinate
-     * @param yCoord y coordinate
-     */
-    Component(uint32_t xCoord, uint32_t yCoord)
+    Component(int32_t xCoord, int32_t yCoord)
         : x(xCoord), y(yCoord), width(0), height(0) {}
-
-    /**
-     * @brief Construct a new Component object from coordinates and dimensions.
-     *
-     * @param xCoord x coordinate
-     * @param yCoord y coordinate
-     * @param w width
-     * @param h height
-     */
-    Component(uint32_t xCoord, uint32_t yCoord, uint32_t w, uint32_t h)
+    Component(int32_t xCoord, int32_t yCoord, uint32_t w, uint32_t h)
         : x(xCoord), y(yCoord), width(w), height(h) {}
 
-    /**
-     * @brief Copy constructor
-     *
-     * @param other the other Component to copy from
-     */
     Component(const Component& other) = default;
-
-    /**
-     * @brief Copy assignment operator
-     *
-     * @param other the other Component to copy from
-     * @return Component&
-     */
     Component& operator=(Component const& other) = default;
-
-    /**
-     * @brief Move constructor
-     *
-     * @param other the other Component to move from
-     */
     Component(Component&& other) noexcept = default;
-
-    /**
-     * @brief Move assignment operator
-     *
-     * @param other the other Component to move from
-     * @return Component&
-     */
     Component& operator=(Component&& other) noexcept = default;
 
-    /**
-     * @brief Destroys the Component object
-     *
-     */
-    virtual ~Component();
+    virtual ~Component() = default;
+
+    uint32_t getX() noexcept { return x; }
+    uint32_t getY() noexcept { return y; }
+    uint32_t getHeight() noexcept { return height; }
+    uint32_t getWidth() noexcept { return width; }
+
+    void setWidth(uint32_t w) noexcept { width = w; }
+    void setHeight(uint32_t h) noexcept  { height = h; }
+    void setX(uint32_t xCoord) noexcept { x = xCoord; }
+    void setY(uint32_t yCoord) noexcept { y = yCoord; }
 
     /**
-     * @brief Gets the x coordinate of the component.
-     * ß
-     * @return x coordinate
-     */
-    uint32_t getX() { return x; }
-    const uint32_t getX() const { return x; }
-
-    /**
-     * @brief Gets the y coordinate of the component.
+     * @brief Returns the rendered character at a local coordinate.
      *
-     * @return y coordinate
-     */
-    uint32_t getY() { return y; }
-    const uint32_t getY() const { return y; }
-
-    /**
-     * @brief Gets the height of the component.
+     * @param x Local x coordinate relative to the component origin.
+     * @param y Local y coordinate relative to the component origin.
+     * @return The ColoredChar rendered at (x, y).
      *
-     * @return height
+     * @note
+     * This function must be implemented by all derived components. Implementations
+     * should return a BLANK_CHARACTER for coordinates outside the
+     * component's visible region.
      */
-    uint32_t getHeight() { return height; }
-
-    const uint32_t getHeight() const { return height; }
-
-    /**
-     * @brief Gets the width of the component.
-     *
-     * @return width
-     */
-    uint32_t getWidth() { return width; }
-    const uint32_t getWidth() const { return width; }
-
-    /**
-     * @brief Sets the width of the object.
-     *
-     * @param w new width
-     */
-    void setWidth(uint32_t w) { width = w; }
-
-    /**
-     * @brief Sets the height of the object.
-     *
-     * @param h new height
-     */
-    void setHeight(uint32_t h) { height = h; }
-
-    /**
-     * @brief Sets the x coordinate of the object.
-     *
-     * @param xCoord new x coordinate
-     */
-    void setX(uint32_t xCoord) { x = xCoord; }
-
-    /**
-     * @brief Sets the y coordinate of the object.
-     *
-     * @param yCoord new y coordinate
-     */
-    void setY(uint32_t yCoord) { y = yCoord; }
-
-    /**
-     * @brief Default pixelAt function.
-     *
-     * This function is intended to be overridden by derived classes. If it is
-     * not, it will return a blank character.
-     *
-     * @param x x coordinate
-     * @param y y coordinate
-     * @return ColoredChar at (x, y)
-     */
-    virtual ColoredChar pixelAt(int32_t x, int32_t y) const { return BLANK_CHARACTER; }
+    virtual ColoredChar pixelAt(int32_t x, int32_t y) const = 0;
 };
 
-/**
- * @brief Destroys the Component object
- */
-inline Component::~Component() {
-    x = 0;
-    y = 0;
-    width = 0;
-    height = 0;
-}

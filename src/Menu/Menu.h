@@ -24,8 +24,9 @@
  */
 class Menu {
    private:
-    std::vector<std::unique_ptr<Component>> components;  // Components in the menu to render,
-                                         // first component is bottommost
+    std::vector<std::unique_ptr<Component>>
+        components;  // Components in the menu to render,
+                     // first component is bottommost
     std::vector<std::vector<ColoredChar>> renderBuffer;  // Render buffer for
                                                          // the menu
 
@@ -34,10 +35,10 @@ class Menu {
     uint32_t height;
 
    public:
-   /**
-    * @brief Construct a new default constructed Menu object
-    * 
-    */
+    /**
+     * @brief Construct a new default constructed Menu object
+     *
+     */
     Menu() = default;
 
     /**
@@ -59,7 +60,9 @@ class Menu {
      *
      * @param c Component to add
      */
-    void addComponent(std::unique_ptr<Component> c) { components.emplace_back(std::move(c)); }
+    void addComponent(std::unique_ptr<Component> c) {
+        components.emplace_back(std::move(c));
+    }
 
     /**
      * @brief Render the menu by rendering all components into the render
@@ -73,7 +76,6 @@ class Menu {
     void render();
 };
 
-
 /**
  * @brief Destroy the Menu object.
  *
@@ -81,8 +83,8 @@ class Menu {
 inline Menu::~Menu() {
     width = 0;
     height = 0;
-	
-	// No need to manually delete components since we are using unique_ptr
+
+    // No need to manually delete components since we are using unique_ptr
     components.clear();
     renderBuffer.clear();
 }

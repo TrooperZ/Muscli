@@ -10,6 +10,7 @@
  * Implementation file for Menu class.
  */
 
+#include <iostream>
 #include <memory>
 
 #include "Menu.h"
