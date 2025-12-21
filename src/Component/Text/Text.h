@@ -77,7 +77,16 @@ class Text : public Component {
      * @param start Starting index in content vector
      * @param n Number of characters to paint; if 0, paints to end
      */
-    void paint(uint32_t color, size_t start = 0, size_t n = 0);
+    void paintFG(uint32_t color, size_t start = 0, size_t n = 0);
+
+    /**
+     * @brief Paints a portion of the text background with a new color.
+     *
+     * @param color New color as uint32_t RGBA
+     * @param start Starting index in content vector
+     * @param n Number of characters to paint; if 0, paints to end
+     */
+    void paintBG(uint32_t color, size_t start = 0, size_t n = 0);
 
     /**
      * @brief Override for the pixelAt function of the Component class.

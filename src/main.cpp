@@ -45,6 +45,7 @@ int main() {
     // art->AlbumAsciiArt_Test();
     m->addComponent(std::unique_ptr<Component>(std::move(art)));
     m->render();
+    std::cout << *m;
     // while (1) {
     // 	int i = 0; // so it doesnt die
     // }

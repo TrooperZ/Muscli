@@ -10,6 +10,7 @@
  */
 
 #include "Text.h"
+#include <cstdint>
 
 Text::Text(int32_t xCoord, int32_t yCoord, const std::string& textContent,
            uint8_t r, uint8_t g, uint8_t b)
@@ -49,10 +50,10 @@ Text::Text(int32_t xCoord, int32_t yCoord, const std::string& textContent,
     setHeight(static_cast<uint32_t>(lineBreaks.size()));
     setWidth(static_cast<uint32_t>(longestLine));
 
-    paint(rgba, 0, content.size());
+    paintFG(rgba, 0, content.size());
 }
 
-void Text::paint(uint32_t color, size_t start, size_t n) {
+void Text::paintFG(uint32_t color, size_t start, size_t n) {
     if (start >= content.size()) {
         return;
     }
@@ -64,4 +65,9 @@ void Text::paint(uint32_t color, size_t start, size_t n) {
     for (size_t i = start; i < start + n; ++i) {
         content[i].rgba_fg = color;
     }
+}
+
+void Text::paintBG(uint32_t color, size_t start, size_t n) {
+    // TODO: Implement behaivor
+    return;
 }

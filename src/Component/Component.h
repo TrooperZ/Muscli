@@ -50,10 +50,10 @@ class Component {
 
     virtual ~Component() = default;
 
-    uint32_t getX() noexcept { return x; }
-    uint32_t getY() noexcept { return y; }
-    uint32_t getHeight() noexcept { return height; }
-    uint32_t getWidth() noexcept { return width; }
+    uint32_t getX() const noexcept { return x; }
+    uint32_t getY() const noexcept { return y; }
+    uint32_t getHeight() const noexcept { return height; }
+    uint32_t getWidth() const noexcept { return width; }
 
     void setWidth(uint32_t w) noexcept { width = w; }
     void setHeight(uint32_t h) noexcept  { height = h; }

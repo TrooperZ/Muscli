@@ -1,84 +1,90 @@
 /**
  * @file Menu.cpp
  * @author Amin Karic
- * @brief
- * @version 0.1
+ * @brief Implementation of Menu class
  * @date 2025-11-25
  *
  * @copyright Copyright (c) 2025
  *
- * Implementation file for Menu class.
  */
-
-#include <iostream>
-#include <memory>
 
 #include "Menu.h"
 
-/**
- * @brief Construct a new Menu object. Creates a frame around the menu.
- *
- * @param w width of menu
- * @param h height of menu
- */
 Menu::Menu(uint32_t w, uint32_t h) : width(w), height(h) {
     // Initialize render buffer size
     renderBuffer.resize(h, std::vector<ColoredChar>(w));
-    for (auto& row : renderBuffer) {
-        row.resize(w);
-    }
 
-    // Build frame around menu
+    drawBorderFrame();
+}
+
+void Menu::drawBorderFrame() {
+    // Draw corners
     renderBuffer[0][0] = ColoredChar(U'┌', CCHAR_WHITE);
     renderBuffer[0][width - 1] = ColoredChar(U'┐', CCHAR_WHITE);
     renderBuffer[height - 1][0] = ColoredChar(U'└', CCHAR_WHITE);
     renderBuffer[height - 1][width - 1] = ColoredChar(U'┘', CCHAR_WHITE);
 
+    // Draw top and bottom edges
     for (auto i = 1; i < width - 1; ++i) {
         renderBuffer[0][i] = ColoredChar(U'─', CCHAR_WHITE);
         renderBuffer[height - 1][i] = ColoredChar(U'─', CCHAR_WHITE);
     }
 
+    // Draw left and right edges
     for (auto i = 1; i < height - 1; ++i) {
         renderBuffer[i][0] = ColoredChar(U'│', CCHAR_WHITE);
-        for (auto j = 1; j < width - 1; ++j) {
-            renderBuffer[i][j] = ColoredChar(U' ', CCHAR_WHITE);
-        }
         renderBuffer[i][width - 1] = ColoredChar(U'│', CCHAR_WHITE);
     }
 }
 
-/**
- * @brief Render the menu by rendering all components into the render buffer.
- *
- * Elements are placed inside the frame, frame cannot be overwritten. Elements
- * are rendered in the order they were added, first added is bottommost.
- *
- */
 void Menu::render() {
+    clearRenderBuffer();
+
     // Put the updated components into the render buffer
     for (const auto& comp : components) {
-        // Render the component pixel by pixel
-        for (uint32_t y = 0; y < comp->getHeight(); ++y) {
-            for (uint32_t x = 0; x < comp->getWidth(); ++x) {
-                // We don't want anything on the border, so we add an offset
-                int bufX = comp->getX() + x + 1;
-                int bufY = comp->getY() + y + 1;
+        render(comp.get());
+    }
+}
 
-                // Range check, only render if inside the buffer
-                if (bufX >= 0 && bufX < width && bufY >= 0 && bufY < height) {
-                    renderBuffer[bufY][bufX] = comp->pixelAt(x, y);
-                }
+void Menu::render(Component* comp) {
+    // Render the component pixel by pixel
+    for (uint32_t y = 0; y < comp->getHeight(); ++y) {
+        for (uint32_t x = 0; x < comp->getWidth(); ++x) {
+            // Objects are placed inside the frame, so offset by 1
+            int bufX = comp->getX() + x + 1;
+            int bufY = comp->getY() + y + 1;
+
+            // Range check, only render if inside the buffer
+            if (bufX > 0 && bufX < width - 1 && bufY > 0 && bufY < height - 1) {
+                renderBuffer[bufY][bufX] = comp->pixelAt(x, y);
             }
         }
     }
+}
 
-    // Output the render buffer to the console.
-    // TODO: Change this to a ostream? ncurses?
-    for (const auto& row : renderBuffer) {
-        for (const auto& pixel : row) {
-            std::cout << pixel;
+void Menu::clearRenderBuffer() {
+    for (uint32_t y = 1; y < height - 1; ++y) {
+        for (uint32_t x = 1; x < width - 1; ++x) {
+            renderBuffer[y][x] = BLANK_CHARACTER;
         }
-        std::cout << '\n';
     }
+}
+
+bool Menu::removeComponent(size_t index) {
+    size_t oldSize = components.size();
+    if (index < components.size()) {
+        components.erase(components.begin() + index);
+    }
+    return components.size() != oldSize;
+}
+
+bool Menu::removeComponent(Component* comp) {
+    size_t oldSize = components.size();
+    components.erase(
+        std::remove_if(components.begin(), components.end(),
+                       [comp](const std::unique_ptr<Component>& ptr) {
+                           return ptr.get() == comp;
+                       }),
+        components.end());
+    return components.size() != oldSize;
 }
