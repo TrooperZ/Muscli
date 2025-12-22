@@ -22,6 +22,8 @@
 #include "../ColoredChar/ColoredChar.h"
 
 /**
+ * @class Component
+ *
  * @brief Base class for renderable UI components.
  *
  * @details

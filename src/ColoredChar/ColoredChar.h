@@ -92,7 +92,7 @@ inline std::string toUTF8(char32_t c) {
  * @details
  * Decodes a UTF-8 sequence starting at byte index @p i in the input
  * string and returns  the decoded UTF-32 code point and the number of bytes
- * consumed (1–4) in an std::pair. 
+ * consumed (1–4) in an std::pair.
  *
  * @param str Input UTF-8 encoded string.
  * @param i Starting byte index within @p str.
@@ -160,11 +160,13 @@ inline std::pair<size_t, char32_t> decodeUTF8Char(const std::string& str,
     } else {
         throw std::runtime_error("Invalid UTF-8 start byte");
     }
-    
-    return {0, 0}; 
+
+    return {0, 0};
 }
 
 /**
+ * @class ColoredChar
+ *
  * @brief Value type representing a single renderable glyph.
  *
  * @details

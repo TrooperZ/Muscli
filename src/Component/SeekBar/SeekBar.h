@@ -18,6 +18,8 @@
 #include "../Component.h"
 
 /**
+ * @class SeekBar
+ *
  * @brief Represents a horizontal seek bar indicating playback progress.
  */
 class SeekBar : public Component {

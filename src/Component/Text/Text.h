@@ -20,6 +20,8 @@
 #include "../Component.h"
 
 /**
+ * @class Text
+ *
  * @brief Renderable text component composed of colored characters.
  *
  * @details

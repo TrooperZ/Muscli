@@ -23,6 +23,8 @@
 #include "../Component.h"
 
 /**
+ * @class AlbumAsciiArt
+ *
  * @brief Represents an AlbumAsciiArt component.
  *
  * This component renders a fixed-size ASCII representation of album artwork.

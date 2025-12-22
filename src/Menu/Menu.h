@@ -22,6 +22,8 @@
 #include "../Component/Component.h"
 
 /**
+ * @class Menu
+ *
  * @brief Represents a menu object. Holds components and handles rendering.
  */
 class Menu {
