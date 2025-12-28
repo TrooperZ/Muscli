@@ -31,8 +31,6 @@ class Menu {
     std::vector<std::unique_ptr<Component>>
         components;  // Components in the menu to render,
                      // first component is bottommost
-    std::vector<std::vector<ColoredChar>> renderBuffer;  // 2D Render buffer for
-                                                         // the menu
 
    protected:
     uint32_t width;
@@ -52,7 +50,7 @@ class Menu {
      * Creates a bordered frame and initializes the render buffer to the
      * given dimensions.
      */
-    Menu(uint32_t w, uint32_t h);
+    Menu(uint32_t w, uint32_t h) : width(w), height(h){};
 
     Menu(const Menu& other) = default;
     Menu& operator=(Menu const& other) = default;
@@ -109,58 +107,11 @@ class Menu {
     void clearComponents() { components.clear(); }
 
     /**
-     * @brief Render the menu by drawing all components into the render
-     * buffer.
+     * @brief Get the Components object
      *
-     * @details
-     * Elements are placed inside the frame, frame cannot be overwritten.
-     * Elements are rendered in the order they were added, first added is
-     * bottommost.
+     * @return std::vector<std::unique_ptr<Component>>&
      */
-    void render();
-
-    /**
-     * @brief Renders a single component into the render buffer.
-     *
-     * @param comp Component to render.
-     *
-     * @details
-     * This function draws the given component into the render buffer at its
-     * specified position. It does not clear or modify other parts of the
-     * render buffer. Useful for updating only a single component in the menu.
-     */
-    void render(Component* comp);
-
-    /**
-     * @brief Draws the border frame around the menu onto the render buffer.
-     *
-     * @details
-     * This function initializes the corners and edges of the menu frame. Useful
-     * if we ever need to redraw the frame.
-     */
-    void drawBorderFrame();
-
-    /**
-     * @brief Clears the render buffer inside the border frame.
-     *
-     */
-    void clearRenderBuffer();
-
-    /**
-     * @brief Stream insertion operator overload for Menu. Outputs the buffer.
-     *
-     * @param os output stream
-     * @param menu Menu to output
-     * @return std::ostream& output stream with menu buffer contents
-     */
-    // TODO: Change this to ncurses?
-    friend std::ostream& operator<<(std::ostream& os, const Menu& menu) {
-        for (const auto& row : menu.renderBuffer) {
-            for (const auto& pixel : row) {
-                os << pixel;
-            }
-            os << '\n';
-        }
-        return os;
+    std::vector<std::unique_ptr<Component>>& getComponents() {
+        return components;
     }
 };

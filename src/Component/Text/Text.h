@@ -73,6 +73,31 @@ class Text : public Component {
     ~Text() = default;
 
     /**
+     * @brief Change the text inside the Text object
+     *
+     * @param text text to change to
+     * @param color color of text (default is CCHAR_WHITE)
+     */
+    void rebuildFromString(const std::string& text, uint32_t color = CCHAR_WHITE);
+
+    /**
+     * @brief Change the text inside the Text object
+     *
+     * @param text text to change to
+     * @param r red color component (0-255)
+     * @param g green color component (0-255)
+     * @param b blue color component (0-255)
+     */
+    void rebuildFromString(const std::string& text, uint8_t r, uint8_t g, uint8_t b);
+
+    /**
+     * @brief Change the text inside the Text object
+     *
+     * @param text vector of ColoredChar text to change to
+     */
+    void rebuildFromString(std::vector<ColoredChar> text) { content = text; }
+
+    /**
      * @brief Paints a portion of the text with a new color.
      *
      * @param color New color as uint32_t RGBA

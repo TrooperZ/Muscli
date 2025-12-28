@@ -13,6 +13,7 @@
  * performed only when requested, allowing background threads to
  * update data without triggering immediate redraws.
  */
+#pragma once
 
 #include <condition_variable>
 #include <cstddef>
@@ -20,6 +21,7 @@
 #include <vector>
 
 #include "../Menu/Menu.h"
+#include "../TextInput/InputState/InputState.h"
 
 /**
  * @class Renderer
@@ -38,12 +40,13 @@ class Renderer {
    private:
     std::vector<Menu*> menus;    // Pointers to Menus rendered by this renderer
     size_t activeMenu;           // Index of the active menu
-    bool dirty = false;          // Indicates if redraw requested
+    bool dirty = true;           // Indicates if redraw requested
     bool running = true;         // Controls the lifetime of the render loop
     std::mutex mtx;              // Protects shared renderer state
     std::condition_variable cv;  // Used to sleep/wake the render loop
+    InputState& inputState;      // Object tracking input data
     std::vector<std::vector<ColoredChar>>
-        outputBuffer;  // TODO: move buffer to renderer
+        outputBuffer;
 
     /**
      * @brief Render and output the active menu once.
@@ -53,25 +56,33 @@ class Renderer {
     void draw();
 
    public:
-    Renderer() = default;
+    // Requires refrences therefore we cannot have default ctor
+    Renderer() = delete;
 
     /**
      * @brief Construct a Renderer with a set of menus.
      *
      * The renderer does not take ownership of the menus.
      *
+     * @param inputState Reference to the shared input state.
      * @param menus Vector of menu pointers to render
      */
-    Renderer(std::vector<Menu*> menus) : menus(menus), activeMenu(0){};
+    Renderer(InputState& inputState, std::vector<Menu*> menus)
+        : inputState(inputState), menus(menus), activeMenu(0){};
 
     /**
      * @brief Construct a Renderer with menus and an active menu index.
      *
+     * @param inputState Reference to the shared input state.
      * @param menus Vector of menu pointers to render
      * @param activeMenu Index of the initially active menu
      */
-    Renderer(std::vector<Menu*> menus, size_t activeMenu)
-        : menus(menus), activeMenu(activeMenu >= menus.size() ? menus.size() - 1 : activeMenu){};
+    Renderer(InputState& inputState, std::vector<Menu*> menus,
+             size_t activeMenu)
+        : inputState(inputState),
+          menus(menus),
+          activeMenu(activeMenu >= menus.size() ? menus.size() - 1
+                                                : activeMenu){};
 
     // Renderer is non-copyable and non-movable to enforce single ownership
     Renderer(const Renderer& other) = delete;
