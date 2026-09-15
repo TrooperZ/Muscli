@@ -1,70 +1,62 @@
 /**
  * @file TextInput.cpp
- * @author Amin Karic
- * @brief TextInput class definition
- * @date 2025-12-25
- *
- * @copyright Copyright (c) 2025
- *
+ * @brief POSIX terminal input shared by macOS and Linux
  */
-
 #include "TextInput.h"
 
-#include <stdlib.h>
-#include <termios.h>
+#include <poll.h>
 #include <unistd.h>
 
-// https://viewsourcecode.org/snaptoken/kilo/02.enteringRawMode.html
+#include <cerrno>
+#include <stdexcept>
 
-static struct termios orig_termios;  // Original terminal state
-
-// Helper functions since atexit() requires (*)(void)
-void disableRawMode() { tcsetattr(STDIN_FILENO, TCSAFLUSH, &orig_termios); }
-
-void TextInput::run() {
-    // Enable raw mode and save terminal state
-    tcgetattr(STDIN_FILENO, &orig_termios);
-
-    // Restores state at program exit
-    atexit(disableRawMode);
-
-    struct termios raw = orig_termios;
-
-    raw.c_iflag &= ~(ICRNL | IXON);  // Disable Ctrl-S and Ctrl-Q and Ctrl-M
-    // raw.c_oflag &= ~(OPOST); // disable output processing with carrige
-    // returns, maybe keep this on because it looks nicer and easier?
-    raw.c_lflag &= ~(ECHO | ICANON | IEXTEN);
-    // ECHO: echo flag (disables)
-    // ICANON: Canonical mode disabled, allows for raw input
-    // IEXTEN: disables ctrl-v input
-	// It is reccomended to also disable BRKINT, INPCK, ISTRIP, and CS8 as per the tutorial to keep the "raw mode tradition" but I will keep them on
-    // TODO: Add the ISIG parameter to this to disable Ctrl C and ctrl z (or
-    // ctrl y on macos)
-
-    // * TCSAFLUSH: waits for all pending output to be written to the terminal,
-    // * and also discards any input that hasn't been read.
-
-    tcsetattr(STDIN_FILENO, TCSAFLUSH,
-              &raw);  // Modify attributes to enable raw mode
-
-    running = true;
-    while (running) {
-        // check if key == space, print
-        // if key == q, exit()
-        char c;
-        if (read(STDIN_FILENO, &c, 1) == 1) {
-            if (c == 'q'){
-				exit(1);
-			} else {
-				inputState.buffer += c;
-                inputState.cursor++;
-				renderer.requestRedraw();
-			}
-        }
+TextInput::TextInput() {
+    if (!isatty(STDIN_FILENO) || !isatty(STDOUT_FILENO)) {
+        throw std::runtime_error("Playback requires an interactive terminal");
     }
-    // restore terminal state
+    if (tcgetattr(STDIN_FILENO, &original) == -1) {
+        throw std::runtime_error("Could not read terminal settings");
+    }
+    struct termios raw = original;
+    raw.c_iflag &= ~(ICRNL | IXON);
+    raw.c_lflag &= ~(ECHO | ICANON | IEXTEN);
+    raw.c_cc[VMIN] = 1;
+    raw.c_cc[VTIME] = 0;
+    if (tcsetattr(STDIN_FILENO, TCSAFLUSH, &raw) == -1) {
+        throw std::runtime_error("Could not configure terminal input");
+    }
+    const char screen[] = "\x1b[?1049h\x1b[?25l";
+    (void)write(STDOUT_FILENO, screen, sizeof(screen) - 1);
 }
-void TextInput::stop() { running = false; }
-void TextInput::processBuffer() {
-    std::cout << inputState.buffer << " Command processed!\n";
+
+TextInput::~TextInput() {
+    while (tcsetattr(STDIN_FILENO, TCSAFLUSH, &original) == -1 &&
+           errno == EINTR) {
+    }
+    const char screen[] = "\x1b[0m\x1b[?25h\x1b[?1049l";
+    (void)write(STDOUT_FILENO, screen, sizeof(screen) - 1);
+}
+
+int TextInput::readKey(int timeoutMs) {
+    struct pollfd input {
+        STDIN_FILENO, POLLIN, 0
+    };
+    int result = poll(&input, 1, timeoutMs);
+    if (result == -1) {
+        if (errno == EINTR) return -1;
+        throw std::runtime_error("Could not wait for keyboard input");
+    }
+    if (result == 0) return -1;
+    if (input.revents & (POLLERR | POLLNVAL)) {
+        throw std::runtime_error("Terminal input failed");
+    }
+    if (input.revents & POLLIN) {
+        unsigned char key;
+        ssize_t count = read(STDIN_FILENO, &key, 1);
+        if (count == 1) return key;
+        if (count == 0) return -2;
+        if (errno == EINTR || errno == EAGAIN) return -1;
+        throw std::runtime_error("Could not read keyboard input");
+    }
+    return input.revents & POLLHUP ? -2 : -1;
 }

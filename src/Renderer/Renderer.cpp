@@ -139,7 +139,7 @@ void Renderer::draw() {
         Menu* targetMenu = menus[activeMenu];
         size_t menuWidth = targetMenu->getWidth();
                 // Reserve one terminal row for input to prevent scrolling
-        size_t menuHeight = targetMenu->getHeight() - 1;
+        size_t menuHeight = targetMenu->getHeight();
 
         outputBuffer.resize(menuHeight, std::vector<ColoredChar>(menuWidth));
 
@@ -197,7 +197,7 @@ void Renderer::draw() {
 
         // ---- Input line handling (FIXES DUPLICATION) ----
         // Input line is directly below the menu
-        const size_t inputRow = menuHeight;  // last visible row
+        const size_t inputRow = menuHeight + 1;  // last visible row
         const size_t inputCol = 1;               // start at column 1
 
         // Move cursor to input line

@@ -150,6 +150,12 @@ class Renderer {
      */
     void requestRedraw();
 
+    // Draw on the application thread after updating components
+    void drawOnce() {
+        std::lock_guard<std::mutex> lock(mtx);
+        draw();
+    }
+
     /**
      * @brief Run the renderer loop.
      *
