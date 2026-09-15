@@ -10,6 +10,8 @@
 
 #include "Menu.h"
 
+#include <algorithm>
+
 bool Menu::removeComponent(size_t index) {
     size_t oldSize = components.size();
     if (index < components.size()) {
